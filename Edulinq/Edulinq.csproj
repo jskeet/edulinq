@@ -8,8 +8,8 @@
     <ProjectGuid>{DC9C855E-5021-48E1-B8EC-4C7ED7DDC54E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>JonSkeet.Linq</RootNamespace>
-    <AssemblyName>JonSkeet.Linq</AssemblyName>
+    <RootNamespace>Edulinq</RootNamespace>
+    <AssemblyName>Edulinq</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

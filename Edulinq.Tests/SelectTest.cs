@@ -71,6 +71,14 @@ namespace Edulinq.Tests
         }
 
         [Test]
+        public void SimpleProjectionToDifferentType()
+        {
+            int[] source = { 1, 5, 2 };
+            var result = source.Select(x => x.ToString());
+            result.AssertSequenceEqual("1", "5", "2");
+        }
+
+        [Test]
         public void EmptySource()
         {
             int[] source = new int[0];
