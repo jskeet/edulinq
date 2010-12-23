@@ -15,8 +15,7 @@
 #endregion
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+//using System.Linq;
 using NUnit.Framework;
 
 namespace Edulinq.Tests
@@ -97,7 +96,7 @@ namespace Edulinq.Tests
         public void WithIndexEmptySource()
         {
             int[] source = new int[0];
-            var result = source.Where((x, index) => x < 4);
+            var result = source.Select((x, index) => x + index);
             result.AssertSequenceEqual();
         }
 
@@ -105,6 +104,18 @@ namespace Edulinq.Tests
         public void WithIndexExecutionIsDeferred()
         {
             ThrowingEnumerable.AssertDeferred(src => src.Select((x, index) => x + index));
+        }
+
+        [Test]
+        public void SideEffectsInProjection()
+        {
+            int[] source = new int[3]; // Actual values won't be relevant
+            int count = 0;
+            var query = source.Select(x => count++);
+            query.AssertSequenceEqual(0, 1, 2);
+            query.AssertSequenceEqual(3, 4, 5);
+            count = 10;
+            query.AssertSequenceEqual(10, 11, 12);
         }
     }
 }
