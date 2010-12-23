@@ -89,8 +89,8 @@ namespace Edulinq.Tests
         public void WithIndexSimpleProjection()
         {
             int[] source = { 1, 5, 2 };
-            var result = source.Select((x, index) => x * 2);
-            result.AssertSequenceEqual(2, 1);
+            var result = source.Select((x, index) => x + index * 10);
+            result.AssertSequenceEqual(1, 15, 22);
         }
 
         [Test]
