@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Range.cs" />
     <Compile Include="Select.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Where.cs" />
