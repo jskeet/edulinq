@@ -29,7 +29,7 @@ namespace Edulinq
             return RepeatImpl(element, count);
         }
 
-        public static IEnumerable<TResult> RepeatImpl<TResult>(TResult element, int count)
+        private static IEnumerable<TResult> RepeatImpl<TResult>(TResult element, int count)
         {
             for (int i = 0; i < count; i++)
             {
