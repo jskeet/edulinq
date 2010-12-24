@@ -1,32 +1,26 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual C# Express 2010
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Edulinq", "Edulinq\Edulinq.csproj", "{DC9C855E-5021-48E1-B8EC-4C7ED7DDC54E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Edulinq.Tests", "Edulinq.Tests\Edulinq.Tests.csproj", "{1EA91221-058B-4823-9DE4-E4ED2680B997}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Debug|x64 = Debug|x64
-		Release|Any CPU = Release|Any CPU
-		Release|x64 = Release|x64
+		Edulinq implementation|Any CPU = Edulinq implementation|Any CPU
+		Edulinq implementation|x64 = Edulinq implementation|x64
+		Normal LINQ|Any CPU = Normal LINQ|Any CPU
+		Normal LINQ|x64 = Normal LINQ|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DC9C855E-5021-48E1-B8EC-4C7ED7DDC54E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DC9C855E-5021-48E1-B8EC-4C7ED7DDC54E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DC9C855E-5021-48E1-B8EC-4C7ED7DDC54E}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{DC9C855E-5021-48E1-B8EC-4C7ED7DDC54E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DC9C855E-5021-48E1-B8EC-4C7ED7DDC54E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DC9C855E-5021-48E1-B8EC-4C7ED7DDC54E}.Release|x64.ActiveCfg = Release|Any CPU
-		{1EA91221-058B-4823-9DE4-E4ED2680B997}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1EA91221-058B-4823-9DE4-E4ED2680B997}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1EA91221-058B-4823-9DE4-E4ED2680B997}.Debug|x64.ActiveCfg = Debug|x64
-		{1EA91221-058B-4823-9DE4-E4ED2680B997}.Debug|x64.Build.0 = Debug|x64
-		{1EA91221-058B-4823-9DE4-E4ED2680B997}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1EA91221-058B-4823-9DE4-E4ED2680B997}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1EA91221-058B-4823-9DE4-E4ED2680B997}.Release|x64.ActiveCfg = Release|x64
-		{1EA91221-058B-4823-9DE4-E4ED2680B997}.Release|x64.Build.0 = Release|x64
+		{DC9C855E-5021-48E1-B8EC-4C7ED7DDC54E}.Edulinq implementation|Any CPU.ActiveCfg = Edulinq implementation|Any CPU
+		{DC9C855E-5021-48E1-B8EC-4C7ED7DDC54E}.Edulinq implementation|Any CPU.Build.0 = Edulinq implementation|Any CPU
+		{DC9C855E-5021-48E1-B8EC-4C7ED7DDC54E}.Normal LINQ|Any CPU.ActiveCfg = Normal LINQ|Any CPU
+		{DC9C855E-5021-48E1-B8EC-4C7ED7DDC54E}.Normal LINQ|Any CPU.Build.0 = Normal LINQ|Any CPU
+		{1EA91221-058B-4823-9DE4-E4ED2680B997}.Edulinq implementation|Any CPU.ActiveCfg = Edulinq implementation|Any CPU
+		{1EA91221-058B-4823-9DE4-E4ED2680B997}.Edulinq implementation|Any CPU.Build.0 = Edulinq implementation|Any CPU
+		{1EA91221-058B-4823-9DE4-E4ED2680B997}.Normal LINQ|Any CPU.ActiveCfg = Normal LINQ|Any CPU
+		{1EA91221-058B-4823-9DE4-E4ED2680B997}.Normal LINQ|Any CPU.Build.0 = Normal LINQ|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

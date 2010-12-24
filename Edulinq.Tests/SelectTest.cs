@@ -15,7 +15,10 @@
 #endregion
 using System;
 using System.Collections.Generic;
-//using System.Linq;
+#if NORMAL_LINQ
+using System.Linq;
+#endif
+
 using NUnit.Framework;
 
 namespace Edulinq.Tests

@@ -15,8 +15,12 @@
 #endregion
 using System;
 // This time we can't just use Enumerable, as that will always use Edulinq.Enumerable
-//using RangeClass = System.Linq.Enumerable;
+#if NORMAL_LINQ
+using RangeClass = System.Linq.Enumerable;
+#else
 using RangeClass = Edulinq.Enumerable;
+#endif
+
 using NUnit.Framework;
 
 namespace Edulinq.Tests
