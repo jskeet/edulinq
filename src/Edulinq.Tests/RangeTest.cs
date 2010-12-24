@@ -63,5 +63,23 @@ namespace Edulinq.Tests
         {
             RangeClass.Range(-2, 5).AssertSequenceEqual(-2, -1, 0, 1, 2);
         }
+
+        [Test]
+        public void EmptyRange()
+        {
+            RangeClass.Range(100, 0).AssertSequenceEqual();
+        }
+
+        [Test]
+        public void SingleValueOfMaxInt32()
+        {
+            RangeClass.Range(int.MaxValue, 1).AssertSequenceEqual(int.MaxValue);
+        }
+
+        [Test]
+        public void EmptyRangeStartingAtMinInt32()
+        {
+            RangeClass.Range(int.MinValue, 0).AssertSequenceEqual();
+        }
     }
 }
