@@ -49,10 +49,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CountingEnumerable.cs" />
+    <Compile Include="CountTest.cs" />
+    <Compile Include="EmptyTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryExpressionTest.cs" />
     <Compile Include="RangeTest.cs" />
     <Compile Include="SelectTest.cs" />
+    <Compile Include="SemiGenericCollection.cs" />
     <Compile Include="TestExtensions.cs" />
     <Compile Include="ThrowingEnumerable.cs" />
     <Compile Include="WhereTest.cs" />
