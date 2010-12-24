@@ -13,10 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 #endregion
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Edulinq
 {
@@ -26,7 +23,7 @@ namespace Edulinq
         {
             return EmptyHolder<TResult>.Array;
         }
-
+        
         private static class EmptyHolder<T>
         {
             internal static readonly T[] Array = new T[0];       
