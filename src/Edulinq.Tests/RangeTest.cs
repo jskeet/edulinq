@@ -57,5 +57,11 @@ namespace Edulinq.Tests
         {
             RangeClass.Range(5, 3).AssertSequenceEqual(5, 6, 7);
         }
+
+        [Test]
+        public void NegativeStart()
+        {
+            RangeClass.Range(-2, 5).AssertSequenceEqual(-2, -1, 0, 1, 2);
+        }
     }
 }
