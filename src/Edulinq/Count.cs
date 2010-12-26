@@ -69,16 +69,19 @@ namespace Edulinq
                 throw new ArgumentNullException("predicate");
             }
 
-            // No way of optimizing this
-            int count = 0;
-            foreach (TSource item in source)
+            // No way of optimizing this. Do it the slow way, with overflow.
+            checked
             {
-                if (predicate(item))
+                int count = 0;
+                foreach (TSource item in source)
                 {
-                    count++;
+                    if (predicate(item))
+                    {
+                        count++;
+                    }
                 }
+                return count;
             }
-            return count;
         }
     }
 }

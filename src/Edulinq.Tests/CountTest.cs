@@ -82,8 +82,19 @@ namespace Edulinq.Tests
         [Ignore("Takes an enormous amount of time!")]
         public void Overflow()
         {
-            Assert.Throws<OverflowException>(() => Enumerable.Range(0, int.MaxValue).Concat(Enumerable.Range(0, 1)).Count());
+            var largeSequence = Enumerable.Range(0, int.MaxValue)
+                                          .Concat(Enumerable.Range(0, 1));
+            Assert.Throws<OverflowException>(() => largeSequence.Count());
         }
-         */
+
+        [Test]
+        [Ignore("Takes an enormous amount of time!")]
+        public void OverflowWithPredicate()
+        {
+            var largeSequence = Enumerable.Range(0, int.MaxValue)
+                                          .Concat(Enumerable.Range(0, 1));
+            Assert.Throws<OverflowException>(() => largeSequence.Count(x => x >= 0));
+        }
+        */
     }
 }

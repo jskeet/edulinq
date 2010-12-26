@@ -85,6 +85,14 @@ namespace Edulinq.Tests
             var hugeCollection = Enumerable.Range(0, int.MaxValue).Concat(Enumerable.Range(0, 1));
             Assert.AreEqual(int.MaxValue + 1L, hugeCollection.LongCount());
         }
+
+        [Test]
+        [Ignore("Takes an enormous amount of time!")]
+        public void CollectionBiggerThanMaxInt32CanBeCountedWithLongCount()
+        {
+            var hugeCollection = Enumerable.Range(0, int.MaxValue).Concat(Enumerable.Range(0, 1));
+            Assert.AreEqual(int.MaxValue + 1L, hugeCollection.LongCount(x => x >= 0));
+        }
         */
     }
 }
