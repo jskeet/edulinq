@@ -13,7 +13,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 #endregion
+
+using System;
 using System.Collections.Generic;
+using System.Collections;
 
 namespace Edulinq
 {
@@ -21,12 +24,60 @@ namespace Edulinq
     {
         public static IEnumerable<TResult> Empty<TResult>()
         {
-            return EmptyHolder<TResult>.Array;
+            return EmptyEnumerable<TResult>.Instance;
         }
-        
-        private static class EmptyHolder<T>
+
+#if AVOID_RETURNING_ARRAYS
+        private class EmptyEnumerable<T> : IEnumerable<T>, IEnumerator<T>
         {
-            internal static readonly T[] Array = new T[0];       
+            internal static IEnumerable<T> Instance = new EmptyEnumerable<T>();
+
+            // Prevent construction elsewhere
+            private EmptyEnumerable()
+            {
+            }
+
+            public IEnumerator<T> GetEnumerator()
+            {
+                return this;
+            }
+
+            IEnumerator IEnumerable.GetEnumerator()
+            {
+                return this;
+            }
+
+            public T Current
+            {
+                get { throw new InvalidOperationException(); }
+            }
+
+            object IEnumerator.Current
+            {
+                get { throw new InvalidOperationException(); }
+            }
+
+            public void Dispose()
+            {
+                // No-op
+            }
+
+            public bool MoveNext()
+            {
+                return false; // There's never a next entry
+            }
+
+            public void Reset()
+            {
+                // No-op
+            }
         }
+
+#else
+        private static class EmptyEnumerable<T>
+        {
+            internal static readonly T[] Instance = new T[0];       
+        }
+#endif
     }
 }
