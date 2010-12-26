@@ -35,7 +35,7 @@ namespace Edulinq.Tests
         [Test]
         public void GenericOnlyCollectionCount()
         {
-            Assert.AreEqual(5, new LinkedList<int>(Enumerable.Range(2, 5)).LongCount());
+            Assert.AreEqual(5, new HashSet<int>(Enumerable.Range(2, 5)).LongCount());
         }
 
         [Test]
