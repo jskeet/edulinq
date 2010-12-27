@@ -20,6 +20,22 @@ namespace Edulinq
 {
     public static partial class Enumerable
     {
+#if IMPLEMENT_OPERATORS_USING_SELECTMANY
+        public static IEnumerable<TSource> Where<TSource>(
+            this IEnumerable<TSource> source,
+            Func<TSource, bool> predicate)
+        {
+            if (source == null)
+            {
+                throw new ArgumentNullException("source");
+            }
+            if (predicate == null)
+            {
+                throw new ArgumentNullException("predicate");
+            }
+            return source.SelectMany(x => Enumerable.Repeat(x, predicate(x) ? 1 : 0));
+        }
+#else
         public static IEnumerable<TSource> Where<TSource>(
             this IEnumerable<TSource> source,
             Func<TSource, bool> predicate)
@@ -47,6 +63,7 @@ namespace Edulinq
                 }
             }
         }
+#endif
 
         public static IEnumerable<TSource> Where<TSource>(
             this IEnumerable<TSource> source,

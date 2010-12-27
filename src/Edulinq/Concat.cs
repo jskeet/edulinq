@@ -15,13 +15,27 @@
 #endregion
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Edulinq
 {
     public static partial class Enumerable
     {
+#if IMPLEMENT_OPERATORS_USING_SELECTMANY
+        public static IEnumerable<TSource> Concat<TSource>(
+            this IEnumerable<TSource> first,
+            IEnumerable<TSource> second)
+        {
+            if (first == null)
+            {
+                throw new ArgumentNullException("first");
+            }
+            if (second == null)
+            {
+                throw new ArgumentNullException("second");
+            }
+            return new[] { first, second }.SelectMany(x => x);
+        }
+#else
         public static IEnumerable<TSource> Concat<TSource>(
             this IEnumerable<TSource> first,
             IEnumerable<TSource> second)
@@ -50,5 +64,6 @@ namespace Edulinq
                 yield return item;
             }
         }
+#endif
     }
 }

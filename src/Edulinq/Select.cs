@@ -20,6 +20,22 @@ namespace Edulinq
 {
     public static partial class Enumerable
     {
+#if IMPLEMENT_OPERATORS_USING_SELECTMANY
+        public static IEnumerable<TResult> Select<TSource, TResult>(
+            this IEnumerable<TSource> source,
+            Func<TSource, TResult> selector)
+        {
+            if (source == null)
+            {
+                throw new ArgumentNullException("source");
+            }
+            if (selector == null)
+            {
+                throw new ArgumentNullException("selector");
+            }
+            return source.SelectMany(x => Enumerable.Repeat(selector(x), 1));
+        }
+#else
         public static IEnumerable<TResult> Select<TSource, TResult>(
             this IEnumerable<TSource> source,
             Func<TSource, TResult> selector)
@@ -44,6 +60,7 @@ namespace Edulinq
                 yield return selector(item);
             }
         }
+#endif
 
         public static IEnumerable<TResult> Select<TSource, TResult>(
             this IEnumerable<TSource> source,
