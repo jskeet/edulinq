@@ -77,7 +77,6 @@ namespace Edulinq.Tests
             Assert.AreEqual(3, Enumerable.Range(2, 5).Count(x => x % 2 == 0));
         }
 
-        /* We haven't implemented Concat yet...
         [Test]
         [Ignore("Takes an enormous amount of time!")]
         public void Overflow()
@@ -95,6 +94,5 @@ namespace Edulinq.Tests
                                           .Concat(Enumerable.Range(0, 1));
             Assert.Throws<OverflowException>(() => largeSequence.Count(x => x >= 0));
         }
-        */
     }
 }

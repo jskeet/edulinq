@@ -48,6 +48,7 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConcatTest.cs" />
     <Compile Include="LongCountTest.cs" />
     <Compile Include="CountingEnumerable.cs" />
     <Compile Include="CountTest.cs" />
