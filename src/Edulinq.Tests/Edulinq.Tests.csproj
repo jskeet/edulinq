@@ -57,6 +57,7 @@
     <Compile Include="QueryExpressionTest.cs" />
     <Compile Include="RangeTest.cs" />
     <Compile Include="RepeatTest.cs" />
+    <Compile Include="SelectManyTest.cs" />
     <Compile Include="SelectTest.cs" />
     <Compile Include="SemiGenericCollection.cs" />
     <Compile Include="TestExtensions.cs" />
