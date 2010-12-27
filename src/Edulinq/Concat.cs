@@ -59,6 +59,7 @@ namespace Edulinq
             {
                 yield return item;
             }
+            first = null;
             foreach (TSource item in second)
             {
                 yield return item;
