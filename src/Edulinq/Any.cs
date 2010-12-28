@@ -20,6 +20,24 @@ namespace Edulinq
 {
     public static partial class Enumerable
     {
+#if IMPLEMENT_ANY_USING_ALL
+        public static bool Any<TSource>(
+            this IEnumerable<TSource> source)
+        {
+            return source.Any(x => true);
+        }
+
+        public static bool Any<TSource>(
+            this IEnumerable<TSource> source,
+            Func<TSource, bool> predicate)
+        {
+            if (predicate == null)
+            {
+                throw new ArgumentNullException("predicate");
+            }
+            return !source.All(x => !predicate(x));
+        }
+#else
         public static bool Any<TSource>(
             this IEnumerable<TSource> source)
         {
@@ -56,5 +74,6 @@ namespace Edulinq
             }
             return false;
         }
+#endif
     }
 }
