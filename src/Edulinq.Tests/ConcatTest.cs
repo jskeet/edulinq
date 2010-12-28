@@ -50,7 +50,7 @@ namespace Edulinq.Tests
         }
 
         [Test]
-        public void FirstSequencesIsntAccessedBeforeFirstUse()
+        public void FirstSequenceIsntAccessedBeforeFirstUse()
         {
             IEnumerable<int> first = new ThrowingEnumerable();
             IEnumerable<int> second = new int[] { 5 };
