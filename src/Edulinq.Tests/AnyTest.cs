@@ -77,7 +77,7 @@ namespace Edulinq.Tests
         }
 
         [Test]
-        public void SequenceIsNotEvaluatedBeforeFirstMatch()
+        public void SequenceIsNotEvaluatedAfterFirstMatch()
         {
             int[] src = { 10, 2, 0, 3 };
             var query = src.Select(x => 10 / x);
