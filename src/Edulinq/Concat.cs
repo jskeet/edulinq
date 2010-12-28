@@ -59,6 +59,7 @@ namespace Edulinq
             {
                 yield return item;
             }
+            // Avoid hanging onto a reference we don't really need
             first = null;
             foreach (TSource item in second)
             {
