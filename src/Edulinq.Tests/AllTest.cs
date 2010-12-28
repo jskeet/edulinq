@@ -70,7 +70,7 @@ namespace Edulinq.Tests
         {
             int[] src = { 2, 10, 0, 3 };
             var query = src.Select(x => 10 / x);
-            // This will finish at the second element (x = 10, so 10/10 = 1)
+            // This will finish at the second element (x = 10, so 10/x = 1)
             // It won't evaluate 10/0, which would throw an exception
             Assert.IsFalse(query.All(y => y > 2));
         }
