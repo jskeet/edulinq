@@ -51,6 +51,7 @@
     <Compile Include="AllTest.cs" />
     <Compile Include="AnyTest.cs" />
     <Compile Include="ConcatTest.cs" />
+    <Compile Include="DefaultIfEmptyTest.cs" />
     <Compile Include="LastOrDefaultTest.cs" />
     <Compile Include="LastTest.cs" />
     <Compile Include="FirstOrDefaultTest.cs" />
