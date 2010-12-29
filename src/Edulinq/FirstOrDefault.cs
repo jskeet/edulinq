@@ -20,6 +20,21 @@ namespace Edulinq
 {
     public static partial class Enumerable
     {
+#if IMPLEMENT_ORDEFAULT_USING_DEFAULTIFEMPTY
+        public static TSource FirstOrDefault<TSource>(
+            this IEnumerable<TSource> source)
+        {
+            return source.DefaultIfEmpty().First();
+        }
+
+        public static TSource FirstOrDefault<TSource>(
+            this IEnumerable<TSource> source,
+            Func<TSource, bool> predicate)
+        {
+            // Can't just use source.DefaultIfEmpty().First(predicate)
+            return source.Where(predicate).DefaultIfEmpty().First();
+        }
+#else
         public static TSource FirstOrDefault<TSource>(
             this IEnumerable<TSource> source)
         {
@@ -54,5 +69,6 @@ namespace Edulinq
             }
             return default(TSource);
         }
+#endif
     }
 }
