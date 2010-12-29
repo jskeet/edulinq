@@ -28,7 +28,6 @@ namespace Edulinq
                 throw new ArgumentNullException("source");
             }
 
-
             IList<TSource> list = source as IList<TSource>;
             if (list != null)
             {
