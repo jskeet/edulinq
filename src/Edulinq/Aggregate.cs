@@ -21,7 +21,6 @@ namespace Edulinq
 {
     public static partial class Enumerable
     {
-        // This has a bug at the moment... read on!
         public static TSource Aggregate<TSource>(
             this IEnumerable<TSource> source,
             Func<TSource, TSource, TSource> func)
