@@ -14,7 +14,6 @@
 // limitations under the License.
 #endregion
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -41,6 +40,16 @@ namespace Edulinq.Tests
         {
             string[] source = null;
             Assert.Throws<ArgumentNullException>(() => source.Distinct(StringComparer.Ordinal));
+        }
+
+        [Test]
+        public void NullElementsAreNotPassedToComparer()
+        {
+            IEqualityComparer<object> comparer = new SimpleEqualityComparer();
+            Assert.Throws<NullReferenceException>(() => comparer.GetHashCode(null));
+            Assert.Throws<NullReferenceException>(() => comparer.Equals(null, "xyz"));
+            string[] source = { "xyz", null, "xyz", null, "abc" };
+            source.Distinct().AssertSequenceEqual("xyz", null, "abc");
         }
 
         [Test]
@@ -73,6 +82,7 @@ namespace Edulinq.Tests
                   .AssertSequenceEqual("xyz", TestString1, "XYZ", TestString2);
         }
 
+        // Implementation of IEqualityComparer[T] which uses object identity
         private class ReferenceEqualityComparer : IEqualityComparer<object>
         {
             // Use explicit interface implementation to avoid warnings about hiding
@@ -85,6 +95,23 @@ namespace Edulinq.Tests
             public int GetHashCode(object obj)
             {
                 return RuntimeHelpers.GetHashCode(obj);
+            }
+        }
+
+        // Implementation of IEqualityComparer[T] which uses object's Equals/GetHashCode methods
+        // in the simplest possible way, without any attempt to guard against NullReferenceException.
+        private class SimpleEqualityComparer : IEqualityComparer<object>
+        {
+            // Use explicit interface implementation to avoid warnings about hiding
+            // the static object.Equals(object, object)
+            bool IEqualityComparer<object>.Equals(object x, object y)
+            {
+                return x.Equals(y);
+            }
+
+            public int GetHashCode(object obj)
+            {
+                return obj.GetHashCode();
             }
         }
     }
