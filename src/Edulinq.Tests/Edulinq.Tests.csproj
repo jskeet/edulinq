@@ -76,6 +76,7 @@
     <Compile Include="SingleTest.cs" />
     <Compile Include="TestExtensions.cs" />
     <Compile Include="ThrowingEnumerable.cs" />
+    <Compile Include="UnionTest.cs" />
     <Compile Include="WhereTest.cs" />
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)' == 'Edulinq implementation'">
