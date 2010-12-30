@@ -17,7 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections;
 
-namespace Edulinq.Tests
+namespace Edulinq.TestSupport
 {
     /// <summary>
     /// Enumerable which counts 0...4, but records how many times it has been

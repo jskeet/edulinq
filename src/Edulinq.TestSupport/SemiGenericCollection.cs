@@ -2,13 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Edulinq.Tests
+namespace Edulinq.TestSupport
 {
     /// <summary>
     /// This is a distinctly odd collection - it implements the nongeneric ICollection interface, but the
     /// generic IEnumerable interface. Handy for testing all combinations though.
     /// </summary>
-    class SemiGenericCollection : ICollection, IEnumerable<int>
+    public class SemiGenericCollection : ICollection, IEnumerable<int>
     {
         private readonly List<int> list;
 

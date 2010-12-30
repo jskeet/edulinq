@@ -13,23 +13,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 #endregion
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
 
-namespace Edulinq.Tests
+namespace System.Linq
 {
-    /// <summary>
-    /// Simple class to let us convert an Int32 to a string using the invariant culture,
-    /// without explicitly having to use CultureInfo.InvariantCulture everywhere.
-    /// </summary>
-    public static class Int32Extensions
+    // This is a dummy class just so that the System.Linq namespace has *something* in it.
+    // That allows the using directives in Edulinq.Tests to survive without the "real" System.Linq
+    // being available.
+    public class DummyClass
     {
-        public static string ToInvariantString(this int value)
-        {
-            return value.ToString(CultureInfo.InvariantCulture);
-        }
     }
 }

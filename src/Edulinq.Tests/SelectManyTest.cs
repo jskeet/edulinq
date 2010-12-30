@@ -14,6 +14,7 @@
 // limitations under the License.
 #endregion
 using System.Linq;
+using Edulinq.TestSupport;
 using NUnit.Framework;
 
 namespace Edulinq.Tests

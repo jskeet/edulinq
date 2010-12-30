@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 #endregion
-
+using Edulinq.TestSupport;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +33,7 @@ namespace Edulinq.Tests
         [Test]
         public void GenericOnlyCollectionCount()
         {
-            Assert.AreEqual(5, new HashSet<int>(Enumerable.Range(2, 5)).Count());
+            Assert.AreEqual(5, new GenericOnlyCollection<int>(Enumerable.Range(2, 5)).Count());
         }
 
         [Test]

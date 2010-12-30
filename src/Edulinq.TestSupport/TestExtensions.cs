@@ -16,7 +16,7 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 
-namespace Edulinq.Tests
+namespace Edulinq.TestSupport
 {
     /// <summary>
     /// This is originally from MoreLINQ:
@@ -24,13 +24,13 @@ namespace Edulinq.Tests
     /// 
     /// It may end up being expanded a bit though :)
     /// </summary>
-    internal static class TestExtensions
+    public static class TestExtensions
     {
         /// <summary>
         /// Make testing even easier - a params array makes for readable tests :)
         /// The sequence is evaluated exactly once.
         /// </summary>
-        internal static void AssertSequenceEqual<T>(this IEnumerable<T> actual, params T[] expected)
+        public static void AssertSequenceEqual<T>(this IEnumerable<T> actual, params T[] expected)
         {
             // Working with a copy means we can look over it more than once.
             // We're safe to do that with the array anyway.

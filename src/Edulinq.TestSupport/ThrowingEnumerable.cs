@@ -18,13 +18,13 @@ using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
 
-namespace Edulinq.Tests
+namespace Edulinq.TestSupport
 {
     /// <summary>
     /// Class to help for deferred execution tests: it throw an exception
     /// if GetEnumerator is called.
     /// </summary>
-    internal sealed class ThrowingEnumerable : IEnumerable<int>
+    public sealed class ThrowingEnumerable : IEnumerable<int>
     {
         public IEnumerator<int> GetEnumerator()
         {
@@ -43,7 +43,7 @@ namespace Edulinq.Tests
         /// the result (by calling GetEnumerator() then MoveNext() on it) *should*
         /// throw InvalidOperationException.
         /// </summary>
-        internal static void AssertDeferred<T>(
+        public static void AssertDeferred<T>(
             Func<IEnumerable<int>, IEnumerable<T>> deferredFunction)
         {
             ThrowingEnumerable source = new ThrowingEnumerable();

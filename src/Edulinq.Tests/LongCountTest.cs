@@ -17,6 +17,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Edulinq.TestSupport;
 using NUnit.Framework;
 
 namespace Edulinq.Tests
@@ -33,7 +34,7 @@ namespace Edulinq.Tests
         [Test]
         public void GenericOnlyCollectionCount()
         {
-            Assert.AreEqual(5, new HashSet<int>(Enumerable.Range(2, 5)).LongCount());
+            Assert.AreEqual(5, new GenericOnlyCollection<int>(Enumerable.Range(2, 5)).LongCount());
         }
 
         [Test]

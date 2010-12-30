@@ -29,6 +29,7 @@
     <StartupObject />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Edulinq implementation|AnyCPU'">
+    <AddAdditionalExplicitAssemblyReferences>false</AddAdditionalExplicitAssemblyReferences>
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\Edulinq implementation\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
@@ -55,7 +56,6 @@
     <Compile Include="ConcatTest.cs" />
     <Compile Include="DefaultIfEmptyTest.cs" />
     <Compile Include="DistinctTest.cs" />
-    <Compile Include="Int32Extensions.cs" />
     <Compile Include="LastOrDefaultTest.cs" />
     <Compile Include="LastTest.cs" />
     <Compile Include="FirstOrDefaultTest.cs" />
@@ -63,7 +63,6 @@
     <Compile Include="NonEnumerableList.cs" />
     <Compile Include="SingleOrDefaultTest.cs" />
     <Compile Include="LongCountTest.cs" />
-    <Compile Include="CountingEnumerable.cs" />
     <Compile Include="CountTest.cs" />
     <Compile Include="EmptyTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -72,10 +71,7 @@
     <Compile Include="RepeatTest.cs" />
     <Compile Include="SelectManyTest.cs" />
     <Compile Include="SelectTest.cs" />
-    <Compile Include="SemiGenericCollection.cs" />
     <Compile Include="SingleTest.cs" />
-    <Compile Include="TestExtensions.cs" />
-    <Compile Include="ThrowingEnumerable.cs" />
     <Compile Include="UnionTest.cs" />
     <Compile Include="WhereTest.cs" />
   </ItemGroup>
@@ -83,6 +79,12 @@
     <ProjectReference Include="..\Edulinq\Edulinq.csproj">
       <Project>{DC9C855E-5021-48E1-B8EC-4C7ED7DDC54E}</Project>
       <Name>Edulinq</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Edulinq.TestSupport\Edulinq.TestSupport.csproj">
+      <Project>{C552666B-5660-445A-AA21-CF807D03C83E}</Project>
+      <Name>Edulinq.TestSupport</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

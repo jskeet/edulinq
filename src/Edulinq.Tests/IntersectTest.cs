@@ -15,36 +15,45 @@
 #endregion
 using Edulinq.TestSupport;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 
 namespace Edulinq.Tests
 {
     [TestFixture]
-    public class RepeatTest
+    public class IntersectTest
     {
         [Test]
-        public void SimpleRepeat()
+        public void NullFirstWithoutComparer()
         {
-            Enumerable.Repeat("foo", 3).AssertSequenceEqual("foo", "foo", "foo");
+            string[] first = null;
+            string[] second = { };
+            Assert.Throws<ArgumentNullException>(() => first.Intersect(second));
         }
 
         [Test]
-        public void EmptyRepeat()
+        public void NullSecondWithoutComparer()
         {
-            Enumerable.Repeat("foo", 0).AssertSequenceEqual();
+            string[] first = { };
+            string[] second = null;
+            Assert.Throws<ArgumentNullException>(() => first.Intersect(second));
         }
 
         [Test]
-        public void NullElement()
+        public void NullFirstWithComparer()
         {
-            Enumerable.Repeat<string>(null, 2).AssertSequenceEqual(null, null);
+            string[] first = null;
+            string[] second = { };
+            Assert.Throws<ArgumentNullException>(() => first.Intersect(second, StringComparer.Ordinal));
         }
 
         [Test]
-        public void NegativeCount()
+        public void NullSecondWithComparer()
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => Enumerable.Repeat("foo", -1));
+            string[] first = { };
+            string[] second = null;
+            Assert.Throws<ArgumentNullException>(() => first.Intersect(second, StringComparer.Ordinal));
         }
     }
 }
