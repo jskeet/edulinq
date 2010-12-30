@@ -76,14 +76,14 @@ namespace Edulinq.Tests
         public void NullSourceSeededWithResultSelector()
         {
             int[] source = null;
-            Assert.Throws<ArgumentNullException>(() => source.Aggregate(3, (x, y) => x + y, result => result.ToString()));
+            Assert.Throws<ArgumentNullException>(() => source.Aggregate(3, (x, y) => x + y, result => result.ToInvariantString()));
         }
 
         [Test]
         public void NullFuncSeededWithResultSelector()
         {
             int[] source = { 1, 3 };
-            Assert.Throws<ArgumentNullException>(() => source.Aggregate(5, null, result => result.ToString()));
+            Assert.Throws<ArgumentNullException>(() => source.Aggregate(5, null, result => result.ToInvariantString()));
         }
 
         [Test]
@@ -100,11 +100,11 @@ namespace Edulinq.Tests
             int[] source = { 1, 4, 5 };
             int seed = 5;
             Func<int, int, int> func = (current, value) => current * 2 + value;
-            Func<int, string> resultSelector = result => result.ToString();
+            Func<int, string> resultSelector = result => result.ToInvariantString();
             // First iteration: 5 * 2 + 1 = 11
             // Second iteration: 11 * 2 + 4 = 26
             // Third iteration: 26 * 2 + 5 = 57
-            // Result projection: 57.ToString() = "57"
+            // Result projection: 57.ToInvariantString() = "57"
             Assert.AreEqual("57", source.Aggregate(seed, func, resultSelector));
         }
 
@@ -137,7 +137,7 @@ namespace Edulinq.Tests
         public void EmptySequenceSeededWithResultSelector()
         {
             int[] source = { };
-            Assert.AreEqual("5", source.Aggregate(5, (x, y) => x + y, x => x.ToString()));
+            Assert.AreEqual("5", source.Aggregate(5, (x, y) => x + y, x => x.ToInvariantString()));
         }
 
         // Originally I'd thought it was the default value of TSource which was used as the seed...
