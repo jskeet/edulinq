@@ -14,9 +14,7 @@
 // limitations under the License.
 #endregion
 using System;
-#if NORMAL_LINQ
 using System.Linq;
-#endif
 using NUnit.Framework;
 
 namespace Edulinq.Tests

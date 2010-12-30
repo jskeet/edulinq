@@ -13,11 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 #endregion
-#if NORMAL_LINQ
-using EmptyClass = System.Linq.Enumerable;
-#else
-using EmptyClass = Edulinq.Enumerable;
-#endif
+using System.Linq;
 using NUnit.Framework;
 
 namespace Edulinq.Tests
@@ -28,7 +24,7 @@ namespace Edulinq.Tests
         [Test]
         public void EmptyContainsNoElements()
         {
-            using (var empty = EmptyClass.Empty<int>().GetEnumerator())
+            using (var empty = Enumerable.Empty<int>().GetEnumerator())
             {
                 Assert.IsFalse(empty.MoveNext());
             }
@@ -37,13 +33,13 @@ namespace Edulinq.Tests
         [Test]
         public void EmptyIsASingletonPerElementType()
         {
-            Assert.AreSame(EmptyClass.Empty<int>(), EmptyClass.Empty<int>());
-            Assert.AreSame(EmptyClass.Empty<long>(), EmptyClass.Empty<long>());
-            Assert.AreSame(EmptyClass.Empty<string>(), EmptyClass.Empty<string>());
-            Assert.AreSame(EmptyClass.Empty<object>(), EmptyClass.Empty<object>());
+            Assert.AreSame(Enumerable.Empty<int>(), Enumerable.Empty<int>());
+            Assert.AreSame(Enumerable.Empty<long>(), Enumerable.Empty<long>());
+            Assert.AreSame(Enumerable.Empty<string>(), Enumerable.Empty<string>());
+            Assert.AreSame(Enumerable.Empty<object>(), Enumerable.Empty<object>());
 
-            Assert.AreNotSame(EmptyClass.Empty<long>(), EmptyClass.Empty<int>());
-            Assert.AreNotSame(EmptyClass.Empty<string>(), EmptyClass.Empty<object>());
+            Assert.AreNotSame(Enumerable.Empty<long>(), Enumerable.Empty<int>());
+            Assert.AreNotSame(Enumerable.Empty<string>(), Enumerable.Empty<object>());
         }
     }
 }

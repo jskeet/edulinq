@@ -20,7 +20,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;NORMAL_LINQ</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <UseVSHostingProcess>true</UseVSHostingProcess>
@@ -44,8 +44,9 @@
       <HintPath>.\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)' == 'Normal LINQ'">
     <Reference Include="System.Core" />
-    <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AggregateTest.cs" />
@@ -75,10 +76,10 @@
     <Compile Include="ThrowingEnumerable.cs" />
     <Compile Include="WhereTest.cs" />
   </ItemGroup>
-  <ItemGroup>
+  <ItemGroup Condition="'$(Configuration)' == 'Edulinq implementation'">
     <ProjectReference Include="..\Edulinq\Edulinq.csproj">
       <Project>{DC9C855E-5021-48E1-B8EC-4C7ED7DDC54E}</Project>
-      <Name>JonSkeet.Linq</Name>
+      <Name>Edulinq</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

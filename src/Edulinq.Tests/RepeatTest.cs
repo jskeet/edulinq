@@ -14,13 +14,7 @@
 // limitations under the License.
 #endregion
 using System;
-
-#if NORMAL_LINQ
-using RepeatClass = System.Linq.Enumerable;
-#else
-using RepeatClass = Edulinq.Enumerable;
-#endif
-
+using System.Linq;
 using NUnit.Framework;
 
 namespace Edulinq.Tests
@@ -31,25 +25,25 @@ namespace Edulinq.Tests
         [Test]
         public void SimpleRepeat()
         {
-            RepeatClass.Repeat("foo", 3).AssertSequenceEqual("foo", "foo", "foo");
+            Enumerable.Repeat("foo", 3).AssertSequenceEqual("foo", "foo", "foo");
         }
 
         [Test]
         public void EmptyRepeat()
         {
-            RepeatClass.Repeat("foo", 0).AssertSequenceEqual();
+            Enumerable.Repeat("foo", 0).AssertSequenceEqual();
         }
 
         [Test]
         public void NullElement()
         {
-            RepeatClass.Repeat<string>(null, 2).AssertSequenceEqual(null, null);
+            Enumerable.Repeat<string>(null, 2).AssertSequenceEqual(null, null);
         }
 
         [Test]
         public void NegativeCount()
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => RepeatClass.Repeat("foo", -1));
+            Assert.Throws<ArgumentOutOfRangeException>(() => Enumerable.Repeat("foo", -1));
         }
     }
 }
