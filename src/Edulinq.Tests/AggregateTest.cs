@@ -139,5 +139,13 @@ namespace Edulinq.Tests
             int[] source = { };
             Assert.AreEqual("5", source.Aggregate(5, (x, y) => x + y, x => x.ToString()));
         }
+
+        // Originally I'd thought it was the default value of TSource which was used as the seed...
+        [Test]
+        public void FirstElementOfInputIsUsedAsSeedForUnseededOverload()
+        {
+            int[] source = { 5, 3, 2 };
+            Assert.AreEqual(30, source.Aggregate((acc, value) => acc * value));
+        }
     }
 }

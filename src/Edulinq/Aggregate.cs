@@ -40,7 +40,7 @@ namespace Edulinq
                 {
                     throw new InvalidOperationException("Source sequence was empty");
                 }
-                TSource current = func(default(TSource), iterator.Current);
+                TSource current = iterator.Current;
                 while (iterator.MoveNext())
                 {
                     current = func(current, iterator.Current);
