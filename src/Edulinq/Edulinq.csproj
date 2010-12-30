@@ -50,6 +50,7 @@
     <Compile Include="Any.cs" />
     <Compile Include="Concat.cs" />
     <Compile Include="DefaultIfEmpty.cs" />
+    <Compile Include="Distinct.cs" />
     <Compile Include="SingleOrDefault.cs" />
     <Compile Include="Single.cs" />
     <Compile Include="Last.cs" />
