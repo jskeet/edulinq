@@ -15,7 +15,6 @@
 #endregion
 using Edulinq.TestSupport;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 
@@ -54,6 +53,71 @@ namespace Edulinq.Tests
             string[] first = { };
             string[] second = null;
             Assert.Throws<ArgumentNullException>(() => first.Intersect(second, StringComparer.Ordinal));
+        }
+
+        [Test]
+        public void NoComparerSpecified()
+        {
+            string[] first = { "A", "a", "b", "c", "b" };
+            string[] second = { "b", "a", "d", "a" };
+            first.Intersect(second).AssertSequenceEqual("a", "b");
+        }
+
+        [Test]
+        public void NullComparerSpecified()
+        {
+            string[] first = { "A", "a", "b", "c", "b" };
+            string[] second = { "b", "a", "d", "a" };
+            first.Intersect(second, null).AssertSequenceEqual("a", "b");
+        }
+
+        [Test]
+        public void CaseInsensitiveComparerSpecified()
+        {
+            string[] first = { "A", "a", "b", "c", "b" };
+            string[] second = { "b", "a", "d", "a" };
+            first.Intersect(second, StringComparer.OrdinalIgnoreCase).AssertSequenceEqual("A", "b");
+        }
+
+        [Test]
+        public void NoSequencesUsedBeforeIteration()
+        {
+            var first = new ThrowingEnumerable();
+            var second = new ThrowingEnumerable();
+            // No exceptions!
+            first.Union(second);
+        }
+
+        [Test]
+        public void SecondSequenceReadFullyOnFirstResultIteration()
+        {
+            int[] first = { 1 };
+            var secondQuery = new[] { 10, 2, 0 }.Select(x => 10 / x);
+
+            var query = first.Intersect(secondQuery);
+            using (var iterator = query.GetEnumerator())
+            {
+                Assert.Throws<DivideByZeroException>(() => iterator.MoveNext());
+            }
+        }
+
+        [Test]
+        public void FirstSequenceOnlyReadAsResultsAreRead()
+        {
+            var firstQuery = new[] { 10, 2, 0, 2 }.Select(x => 10 / x);
+            int[] second = { 1 };
+
+            var query = firstQuery.Intersect(second);
+            using (var iterator = query.GetEnumerator())
+            {
+                // We can get the first value with no problems
+                Assert.IsTrue(iterator.MoveNext());
+                Assert.AreEqual(1, iterator.Current);
+
+                // Getting at the *second* value of the result sequence requires
+                // reading from the first input sequence until the "bad" division
+                Assert.Throws<DivideByZeroException>(() => iterator.MoveNext());
+            }
         }
     }
 }

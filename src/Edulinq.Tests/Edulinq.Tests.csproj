@@ -56,6 +56,9 @@
     <Compile Include="ConcatTest.cs" />
     <Compile Include="DefaultIfEmptyTest.cs" />
     <Compile Include="DistinctTest.cs" />
+    <Compile Include="IntersectTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="LastOrDefaultTest.cs" />
     <Compile Include="LastTest.cs" />
     <Compile Include="FirstOrDefaultTest.cs" />
