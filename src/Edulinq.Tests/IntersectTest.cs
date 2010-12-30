@@ -85,7 +85,11 @@ namespace Edulinq.Tests
             var first = new ThrowingEnumerable();
             var second = new ThrowingEnumerable();
             // No exceptions!
-            first.Union(second);
+            var query = first.Union(second);
+            // Still no exceptions... we're not calling MoveNext.
+            using (var iterator = query.GetEnumerator())
+            {
+            }
         }
 
         [Test]
