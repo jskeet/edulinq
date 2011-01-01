@@ -35,5 +35,17 @@ namespace Edulinq.Tests
                          select x * 2;
             result.AssertSequenceEqual(2, 6, 4, 2);
         }
+
+        [Test]
+        public void Join()
+        {
+            int[] outer = { 5, 3, 7 };
+            string[] inner = { "bee", "giraffe", "tiger", "badger", "ox", "cat", "dog" };
+
+            var query = from x in outer
+                        join y in inner on x equals y.Length
+                        select x + ":" + y;
+            query.AssertSequenceEqual("5:tiger", "3:bee", "3:cat", "3:dog", "7:giraffe");
+        }
     }
 }

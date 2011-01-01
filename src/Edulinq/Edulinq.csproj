@@ -51,6 +51,7 @@
     <Compile Include="IGrouping.cs" />
     <Compile Include="ILookup.cs" />
     <Compile Include="Intersect.cs" />
+    <Compile Include="Join.cs" />
     <Compile Include="Lookup.cs" />
     <Compile Include="SingleOrDefault.cs" />
     <Compile Include="Single.cs" />
