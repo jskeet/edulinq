@@ -47,5 +47,26 @@ namespace Edulinq.Tests
                         select x + ":" + y;
             query.AssertSequenceEqual("5:tiger", "3:bee", "3:cat", "3:dog", "7:giraffe");
         }
+
+        // Equivalent to GroupByTest.GroupByWithElementProjection
+        [Test]
+        public void GroupBy()
+        {
+            string[] source = { "abc", "hello", "def", "there", "four" };
+            var groups = from x in source
+                         group x[0] by x.Length;
+
+            var list = groups.ToList();
+            Assert.AreEqual(3, list.Count);
+
+            list[0].AssertSequenceEqual('a', 'd');
+            Assert.AreEqual(3, list[0].Key);
+
+            list[1].AssertSequenceEqual('h', 't');
+            Assert.AreEqual(5, list[1].Key);
+
+            list[2].AssertSequenceEqual('f');
+            Assert.AreEqual(4, list[2].Key);
+        }
     }
 }

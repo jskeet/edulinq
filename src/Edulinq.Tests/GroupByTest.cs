@@ -16,7 +16,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Edulinq.TestSupport;
 using NUnit.Framework;
 
@@ -29,8 +28,9 @@ namespace Edulinq.Tests
         public void ExecutionIsPartiallyDeferred()
         {
             // No exception yet...
-            var query = new ThrowingEnumerable().GroupBy(x => x);
-            // Note that for LINQ to Objects, calling 
+            new ThrowingEnumerable().GroupBy(x => x);
+            // Note that for LINQ to Objects, calling GetEnumerator() starts iterating
+            // over the input sequence, so we're not testing that...
         }
 
         [Test]
@@ -113,7 +113,7 @@ namespace Edulinq.Tests
         }
 
         [Test]
-        public void ChangesToSourceAreIgnoredAfterFirstElementRetrieved()
+        public void ChangesToSourceAreIgnoredInWhileIteratingOverResultsAfterFirstElementRetrieved()
         {
             var source = new List<string> { "a", "b", "c", "def" };
 
@@ -132,6 +132,16 @@ namespace Edulinq.Tests
                 iterator.Current.AssertSequenceEqual("def");
 
                 Assert.IsFalse(iterator.MoveNext());
+            }
+
+            // If we iterate again now - without calling GroupBy again - we'll see the difference:
+            using (var iterator = groups.GetEnumerator())
+            {
+                Assert.IsTrue(iterator.MoveNext());
+                iterator.Current.AssertSequenceEqual("a", "b", "c");
+
+                Assert.IsTrue(iterator.MoveNext());
+                iterator.Current.AssertSequenceEqual("def", "ghi");
             }
         }
     }
