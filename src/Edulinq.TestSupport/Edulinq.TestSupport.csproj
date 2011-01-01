@@ -44,6 +44,7 @@
     <Compile Include="DummyClass.cs" />
     <Compile Include="GenericOnlyCollection.cs" />
     <Compile Include="Int32Extensions.cs" />
+    <Compile Include="NonEnumerableCollection.cs" />
     <Compile Include="NonEnumerableList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SemiGenericCollection.cs" />

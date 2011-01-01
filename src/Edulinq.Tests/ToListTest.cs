@@ -62,9 +62,9 @@ namespace Edulinq.Tests
         }
 
         [Test]
-        public void IListOptimization()
+        public void ICollectionOptimization()
         {
-            var source = new NonEnumerableList<string> { "hello", "there" };
+            var source = new NonEnumerableCollection<string> { "hello", "there" };
             // If ToList just iterated over the list, this would throw
             var list = source.ToList();
             list.AssertSequenceEqual("hello", "there");

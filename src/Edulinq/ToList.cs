@@ -26,7 +26,7 @@ namespace Edulinq
             {
                 throw new ArgumentNullException("source");
             }
-            // The List<T> constructor optimizes for IList<T>.
+            // The List<T> constructor optimizes for ICollection<T>.
             // That's undocumented, of course... but at least we have a unit test.
             return new List<TSource>(source);
         }
