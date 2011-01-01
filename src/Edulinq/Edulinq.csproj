@@ -49,6 +49,7 @@
     <Compile Include="Distinct.cs" />
     <Compile Include="GroupBy.cs" />
     <Compile Include="Grouping.cs" />
+    <Compile Include="GroupJoin.cs" />
     <Compile Include="IGrouping.cs" />
     <Compile Include="ILookup.cs" />
     <Compile Include="Intersect.cs" />

@@ -48,6 +48,18 @@ namespace Edulinq.Tests
             query.AssertSequenceEqual("5:tiger", "3:bee", "3:cat", "3:dog", "7:giraffe");
         }
 
+        [Test]
+        public void GroupJoin()
+        {
+            int[] outer = { 5, 3, 7 };
+            string[] inner = { "bee", "giraffe", "tiger", "badger", "ox", "cat", "dog" };
+
+            var query = from x in outer
+                        join y in inner on x equals y.Length into matches
+                        select x + ":" + string.Join(";", matches);
+            query.AssertSequenceEqual("5:tiger", "3:bee;cat;dog", "7:giraffe");
+        }
+
         // Equivalent to GroupByTest.GroupByWithElementProjection
         [Test]
         public void GroupBy()

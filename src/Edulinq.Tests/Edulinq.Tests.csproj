@@ -60,6 +60,7 @@
     <Compile Include="GroupByTest.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="GroupJoinTest.cs" />
     <Compile Include="IntersectTest.cs">
       <SubType>Code</SubType>
     </Compile>
