@@ -47,6 +47,7 @@
     <Compile Include="Except.cs" />
     <Compile Include="DefaultIfEmpty.cs" />
     <Compile Include="Distinct.cs" />
+    <Compile Include="GroupBy.cs" />
     <Compile Include="Grouping.cs" />
     <Compile Include="IGrouping.cs" />
     <Compile Include="ILookup.cs" />
