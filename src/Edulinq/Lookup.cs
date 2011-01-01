@@ -59,6 +59,9 @@ namespace Edulinq
                 {
                     return Enumerable.Empty<TElement>();
                 }
+                // Other options:
+                // - Return a ReadOnlyCollection (which will allow fast counting, for example)
+                // - Return a new Grouping(key, list)
                 return list.Select(x => x);
             }
         }
