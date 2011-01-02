@@ -39,21 +39,16 @@ namespace Edulinq
             IEnumerable<TSource> source,
             Func<TSource, bool> predicate)
         {
-            using (IEnumerator<TSource> iterator = source.GetEnumerator())
+            bool skipping = true;
+            foreach (TSource item in source)
             {
-                bool hasNext;
-                while ((hasNext = iterator.MoveNext()) && predicate(iterator.Current))
+                if (skipping)
                 {
-                    // Ignore element
+                    skipping = predicate(item);
                 }
-                if (!hasNext)
+                if (!skipping)
                 {
-                    yield break;
-                }
-                yield return iterator.Current;
-                while (iterator.MoveNext())
-                {
-                    yield return iterator.Current;
+                    yield return item;
                 }
             }
         }
@@ -77,23 +72,18 @@ namespace Edulinq
             IEnumerable<TSource> source,
             Func<TSource, int, bool> predicate)
         {
-            using (IEnumerator<TSource> iterator = source.GetEnumerator())
+            int index = 0;
+            bool skipping = true;
+            foreach (TSource item in source)
             {
-                int index = 0;
-                bool hasNext;
-                while ((hasNext = iterator.MoveNext()) && predicate(iterator.Current, index))
+                if (skipping)
                 {
-                    // Ignore element
+                    skipping = predicate(item, index);
                     index++;
                 }
-                if (!hasNext)
+                if (!skipping)
                 {
-                    yield break;
-                }
-                yield return iterator.Current;
-                while (iterator.MoveNext())
-                {
-                    yield return iterator.Current;
+                    yield return item;
                 }
             }
         }
