@@ -46,6 +46,7 @@ namespace Edulinq
                 {
                     skipping = predicate(item);
                 }
+                // Note that we can't just use "else" here, as we may have just stopped skipping
                 if (!skipping)
                 {
                     yield return item;
@@ -81,6 +82,7 @@ namespace Edulinq
                     skipping = predicate(item, index);
                     index++;
                 }
+                // Note that we can't just use "else" here, as we may have just stopped skipping
                 if (!skipping)
                 {
                     yield return item;
