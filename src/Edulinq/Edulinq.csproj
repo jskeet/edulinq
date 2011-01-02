@@ -73,6 +73,7 @@
     <Compile Include="SelectMany.cs" />
     <Compile Include="Take.cs" />
     <Compile Include="TakeWhile.cs" />
+    <Compile Include="ToArray.cs" />
     <Compile Include="ToList.cs" />
     <Compile Include="ToLookup.cs" />
     <Compile Include="Union.cs" />
