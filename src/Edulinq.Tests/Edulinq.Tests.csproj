@@ -86,6 +86,7 @@
     <Compile Include="TakeTest.cs" />
     <Compile Include="TakeWhileTest.cs" />
     <Compile Include="ToArrayTest.cs" />
+    <Compile Include="ToDictionaryTest.cs" />
     <Compile Include="ToListTest.cs" />
     <Compile Include="ToLookupTest.cs" />
     <Compile Include="UnionTest.cs" />
