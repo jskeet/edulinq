@@ -44,6 +44,7 @@
     <Compile Include="All.cs" />
     <Compile Include="Any.cs" />
     <Compile Include="Concat.cs" />
+    <Compile Include="InternalList.cs" />
     <Compile Include="SkipWhile.cs" />
     <Compile Include="Skip.cs" />
     <Compile Include="Except.cs" />

@@ -21,6 +21,14 @@ namespace Edulinq
 {
     public static partial class Enumerable
     {
+#if JON_IS_VERY_LAZY
+        // Always creates an extra copy
+        public static TSource[] ToArray<TSource>(this IEnumerable<TSource> source)
+        {
+            return source.ToList().ToArray();
+        }
+#elif JON_IS_MILDLY_LAZY
+        // Creates an extra copy for non-collections
         public static TSource[] ToArray<TSource>(this IEnumerable<TSource> source)
         {
             if (source == null)
@@ -36,5 +44,45 @@ namespace Edulinq
             }
             return new List<TSource>(source).ToArray();
         }
+#else
+        // Only creates an extra copy if has has to
+        public static TSource[] ToArray<TSource>(this IEnumerable<TSource> source)
+        {
+            if (source == null)
+            {
+                throw new ArgumentNullException("source");
+            }
+
+            // Optimize for ICollection<T>
+            ICollection<TSource> collection = source as ICollection<TSource>;
+            if (collection != null)
+            {
+                TSource[] tmp = new TSource[collection.Count];
+                collection.CopyTo(tmp, 0);
+                return tmp;
+            }
+            
+            // We'll have to loop through, creating and copying arrays as we go
+            TSource[] ret = new TSource[16];
+            int count = 0;
+            foreach (TSource item in source)
+            {
+                // Need to expand...
+                if (count == ret.Length)
+                {
+                    Array.Resize(ref ret, ret.Length * 2);
+                }
+                ret[count++] = item;
+            }
+
+            // Now create another copy if we have to, in order to get an array of the
+            // right size
+            if (count != ret.Length)
+            {
+                Array.Resize(ref ret, count);
+            }
+            return ret;
+        }
+#endif
     }
 }
