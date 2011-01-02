@@ -24,6 +24,12 @@ namespace Edulinq.Tests
     public class TakeTest
     {
         [Test]
+        public void ExecutionIsDeferred()
+        {
+            new ThrowingEnumerable().Take(10);
+        }
+
+        [Test]
         public void NullSource()
         {
             string[] source = null;

@@ -44,6 +44,7 @@
     <Compile Include="All.cs" />
     <Compile Include="Any.cs" />
     <Compile Include="Concat.cs" />
+    <Compile Include="SkipWhile.cs" />
     <Compile Include="Skip.cs" />
     <Compile Include="Except.cs" />
     <Compile Include="DefaultIfEmpty.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SelectMany.cs" />
     <Compile Include="Take.cs" />
+    <Compile Include="TakeWhile.cs" />
     <Compile Include="ToList.cs" />
     <Compile Include="ToLookup.cs" />
     <Compile Include="Union.cs" />

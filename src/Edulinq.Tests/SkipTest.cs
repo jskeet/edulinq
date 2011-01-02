@@ -24,6 +24,12 @@ namespace Edulinq.Tests
     public class SkipTest
     {
         [Test]
+        public void ExecutionIsDeferred()
+        {
+            new ThrowingEnumerable().Skip(10);
+        }
+
+        [Test]
         public void NullSource()
         {
             string[] source = null;
