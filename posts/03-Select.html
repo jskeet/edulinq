@@ -1,0 +1,186 @@
+<html>
+<head>
+<title>Reimplementing LINQ to Objects: Part 3 - "Select"</title>
+<link rel="stylesheet" href="codestyles.css" />
+</head>
+<body>
+<h1>Part 3 - "Select"</h1>
+
+<p>It's been a long time since I wrote <a href="http://msmvps.com/blogs/jon_skeet/archive/2010/09/03/reimplementing-linq-to-objects-part-1-introduction.aspx" target="_blank">part 1</a> and <a href="http://msmvps.com/blogs/jon_skeet/archive/2010/09/03/reimplementing-linq-to-objects-part-2-quot-where-quot.aspx" target="_blank">part 2</a> of this blog series, but hopefully things will move a bit more quickly now.</p>
+
+<p>The main step forward is that the project now has a <a href="http://edulinq.googlecode.com" target="_blank">source repository on Google Code</a> instead of just being a zip file on each blog post. I had to give the project a title at that point, and I've chosen Edulinq, hopefully for obvious reasons. I've changed the namespaces etc in the code, and the <a href="http://msmvps.com/blogs/jon_skeet/archive/tags/Edulinq/default.aspx" target="_blank">blog tag for the series</a> is now Edulinq too. Anyway, enough of the preamble... let's get on with reimplementing LINQ, this time with the Select operator.</p>
+
+<h3>What is it?</h3>
+
+<p>Like Where, <a href="http://msdn.microsoft.com/en-us/library/bb357126.aspx" target="_blank">Select has two overloads</a>:</p>
+
+<div class="code"><span class="Modifier">public</span>&#160;<span class="Modifier">static</span> IEnumerable&lt;TResult&gt; Select&lt;TSource, TResult&gt;( 
+
+  <br />&#160;&#160;&#160; <span class="Keyword">this</span> IEnumerable&lt;TSource&gt; source, 
+
+  <br />&#160;&#160;&#160; Func&lt;TSource, TResult&gt; selector) 
+
+  <br />
+
+  <br /><span class="Modifier">public</span>&#160;<span class="Modifier">static</span> IEnumerable&lt;TResult&gt; Select&lt;TSource, TResult&gt;( 
+
+  <br />&#160;&#160;&#160; <span class="Keyword">this</span> IEnumerable&lt;TSource&gt; source, 
+
+  <br />&#160;&#160;&#160; Func&lt;TSource, <span class="ValueType">int</span>, TResult&gt; selector) </div>
+
+<p>Again, they both operate the same way - but the second overload allows the index into the sequence to be used as part of the projection.</p>
+
+<p>Simple stuff first: the method <em>projects</em> one sequence to another: the &quot;selector&quot; delegate is applied to each input element in turn, to yield an output element. Behaviour notes, which are exactly the same as Where (to the extent that I cut and paste these from the previous blog post, and just tweaked them):</p>
+
+<ul>
+  <li>The input sequence is not modified in any way. </li>
+
+  <li>The method uses <em>deferred execution</em> - until you start trying to fetch items from the output sequence, it won't start fetching items from the input sequence. </li>
+
+  <li>Despite deferred execution, it will validate that the parameters aren't null immediately. </li>
+
+  <li>It <em>streams</em> its results: it only ever needs to look at one result at a time. </li>
+
+  <li>It will iterate over the input sequence exactly once each time you iterate over the output sequence.</li>
+
+  <li>The &quot;selector&quot; function is called exactly once per yielded value.</li>
+
+  <li>Disposing of an iterator over the output sequence will dispose of the corresponding iterator over the input sequence. </li>
+</ul>
+
+<h3>What are we going to test?</h3>
+
+<p>The tests are very much like those for Where - except that in cases where we tested the filtering aspect of Where, we're now testing the projection aspect of Select.</p>
+
+<p>There are a few tests of some interest. Firstly, you can tell that the method is generic with 2 type parameters instead of 1 - it has type parameters of TSource and TResult. They're fairly self-explanatory, but it means it's worth having a test for the case where the type arguments are different - such as converting an int to a string:</p>
+
+<div class="code">[Test] 
+  <br /><span class="Modifier">public</span>&#160;<span class="ValueType">void</span> SimpleProjectionToDifferentType() 
+
+  <br />{ 
+
+  <br />&#160;&#160;&#160; <span class="ValueType">int</span>[] source = { 1, 5, 2 }; 
+
+  <br />&#160;&#160;&#160; <span class="Linq">var</span> result = source.Select(x =&gt; x.ToString()); 
+
+  <br />&#160;&#160;&#160; result.AssertSequenceEqual(<span class="String">&quot;1&quot;</span>, <span class="String">&quot;5&quot;</span>, <span class="String">&quot;2&quot;</span>); 
+
+  <br />} </div>
+
+<p>Secondly, I have a test that shows what sort of bizarre situations you can get into if you include side effects in your query. We could have done this with Where as well of course, but it's clearer with Select:</p>
+
+<div class="code">[Test] 
+  <br /><span class="Modifier">public</span>&#160;<span class="ValueType">void</span> SideEffectsInProjection() 
+
+  <br />{ 
+
+  <br />&#160;&#160;&#160; <span class="ValueType">int</span>[] source = <span class="Keyword">new</span>&#160;<span class="ValueType">int</span>[3]; <span class="InlineComment">// Actual values won't be relevant</span> 
+
+  <br />&#160;&#160;&#160; <span class="ValueType">int</span> count = 0; 
+
+  <br />&#160;&#160;&#160; <span class="Linq">var</span> query = source.Select(x =&gt; count++); 
+
+  <br />&#160;&#160;&#160; query.AssertSequenceEqual(0, 1, 2); 
+
+  <br />&#160;&#160;&#160; query.AssertSequenceEqual(3, 4, 5); 
+
+  <br />&#160;&#160;&#160; count = 10; 
+
+  <br />&#160;&#160;&#160; query.AssertSequenceEqual(10, 11, 12); 
+
+  <br />} </div>
+
+<p>Notice how we're only calling Select once, but the results of iterating over the results change each time - because the &quot;count&quot; variable has been captured, and is being modified within the projection. Please don't do things like this.</p>
+
+<p>Thirdly, we can now write query expressions which include both &quot;select&quot; and &quot;where&quot; clauses:</p>
+
+<div class="code">[Test] 
+  <br /><span class="Modifier">public</span>&#160;<span class="ValueType">void</span> WhereAndSelect() 
+
+  <br />{ 
+
+  <br />&#160;&#160;&#160; <span class="ValueType">int</span>[] source = { 1, 3, 4, 2, 8, 1 }; 
+
+  <br />&#160;&#160;&#160; <span class="Linq">var</span> result = <span class="Linq">from</span> x <span class="Statement">in</span> source 
+
+  <br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="Linq">where</span> x &lt; 4 
+
+  <br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="Linq">select</span> x * 2; 
+
+  <br />&#160;&#160;&#160; result.AssertSequenceEqual(2, 6, 4, 2); 
+
+  <br />} </div>
+
+<p>There's nothing mind-blowing about any of this, of course - hopefully if you've used LINQ to Objects at all, this should all feel <em>very</em> comfortable and familiar.</p>
+
+<h3>Let's implement it!</h3>
+
+<p>Surprise surprise, we go about implementing Select in much the same way as Where. Again, I simply copied the implementation file and tweaked it a little - the two methods really are that similar. In particular:</p>
+
+<ul>
+  <li>We're using iterator blocks to make it easy to return sequences </li>
+
+  <li>The semantics of iterator blocks mean that we have to separate the argument validation from the real work. (Since I wrote the previous post, I've learned that VB11 will have anonymous iterators, which will avoid this problem. Sigh. It just feels <em>wrong</em> to envy VB users, but I'll learn to live with it.) </li>
+
+  <li>We're using foreach within the iterator blocks to make sure that we dispose of the input sequence iterator appropriately - so long as our <em>output </em>sequence iterator is disposed or we run out of input elements, of course. </li>
+</ul>
+
+<p>I'll skip straight to the code, as it's all so similar to Where. It's also not worth showing you the version with an index - because it's such a trivial difference.</p>
+
+<div class="code"><span class="Modifier">public</span>&#160;<span class="Modifier">static</span> IEnumerable&lt;TResult&gt; Select&lt;TSource, TResult&gt;( 
+
+  <br />&#160;&#160;&#160; <span class="Keyword">this</span> IEnumerable&lt;TSource&gt; source, 
+
+  <br />&#160;&#160;&#160; Func&lt;TSource, TResult&gt; selector) 
+
+  <br />{ 
+
+  <br />&#160;&#160;&#160; <span class="Statement">if</span> (source == <span class="Keyword">null</span>) 
+
+  <br />&#160;&#160;&#160; { 
+
+  <br />&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="Statement">throw</span>&#160;<span class="Keyword">new</span> ArgumentNullException(<span class="String">&quot;source&quot;</span>); 
+
+  <br />&#160;&#160;&#160; } 
+
+  <br />&#160;&#160;&#160; <span class="Statement">if</span> (selector == <span class="Keyword">null</span>) 
+
+  <br />&#160;&#160;&#160; { 
+
+  <br />&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="Statement">throw</span>&#160;<span class="Keyword">new</span> ArgumentNullException(<span class="String">&quot;selector&quot;</span>); 
+
+  <br />&#160;&#160;&#160; } 
+
+  <br />&#160;&#160;&#160; <span class="Statement">return</span> SelectImpl(source, selector); 
+
+  <br />} 
+
+  <br />
+
+  <br /><span class="Modifier">private</span>&#160;<span class="Modifier">static</span> IEnumerable&lt;TResult&gt; SelectImpl&lt;TSource, TResult&gt;( 
+
+  <br />&#160;&#160;&#160; <span class="Keyword">this</span> IEnumerable&lt;TSource&gt; source, 
+
+  <br />&#160;&#160;&#160; Func&lt;TSource, TResult&gt; selector) 
+
+  <br />{ 
+
+  <br />&#160;&#160;&#160; <span class="Statement">foreach</span> (TSource item <span class="Statement">in</span> source) 
+
+  <br />&#160;&#160;&#160; { 
+
+  <br />&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="Statement">yield</span>&#160;<span class="Statement">return</span> selector(item); 
+
+  <br />&#160;&#160;&#160; } 
+
+  <br />} </div>
+
+<p>Simple, isn't it? Again, the real &quot;work&quot; method is even shorter than the argument validation.</p>
+
+<h3>Conclusion</h3>
+
+<p>While I don't generally like boring my readers (which <em>may</em> come as a surprise to some of you) this was a pretty humdrum post, I'll admit. I've emphasized &quot;just like Where&quot; several times to the point of tedium very deliberately though - because it makes it abundantly clear that there aren't really as many tricky bits to understand as you might expect.</p>
+
+<p>Something slightly different next time (which I hope will be in the next few days). I'm not quite sure what yet, but there's an awful lot of methods still to choose from...</p>
+</body>
+</html>
