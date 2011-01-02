@@ -20,6 +20,7 @@ namespace Edulinq
 {
     public static partial class Enumerable
     {
+#if SEPARATE_SKIPTAKE_IMPLEMENTATION
         public static IEnumerable<TSource> Take<TSource>(
             this IEnumerable<TSource> source,
             int count)
@@ -43,5 +44,13 @@ namespace Edulinq
                 }
             }
         }
+#else
+        public static IEnumerable<TSource> Take<TSource>(
+            this IEnumerable<TSource> source,
+            int count)
+        {
+            return source.TakeWhile((x, index) => index < count);
+        }
+#endif
     }
 }
