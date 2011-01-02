@@ -39,17 +39,21 @@ namespace Edulinq
             IEnumerable<TSource> source,
             Func<TSource, bool> predicate)
         {
-            bool skipping = true;
-            foreach (TSource item in source)
+            using (IEnumerator<TSource> iterator = source.GetEnumerator())
             {
-                if (skipping)
+                while (iterator.MoveNext())
                 {
-                    skipping = predicate(item);
+                    TSource item = iterator.Current;
+                    if (!predicate(item))
+                    {
+                        // Stop skipping now, and yield this item
+                        yield return item;
+                        break;
+                    }
                 }
-                // Note that we can't just use "else" here, as we may have just stopped skipping
-                if (!skipping)
+                while (iterator.MoveNext())
                 {
-                    yield return item;
+                    yield return iterator.Current;
                 }
             }
         }
@@ -73,19 +77,23 @@ namespace Edulinq
             IEnumerable<TSource> source,
             Func<TSource, int, bool> predicate)
         {
-            int index = 0;
-            bool skipping = true;
-            foreach (TSource item in source)
+            using (IEnumerator<TSource> iterator = source.GetEnumerator())
             {
-                if (skipping)
+                int index = 0;
+                while (iterator.MoveNext())
                 {
-                    skipping = predicate(item, index);
+                    TSource item = iterator.Current;
+                    if (!predicate(item, index))
+                    {
+                        // Stop skipping now, and yield this item
+                        yield return item;
+                        break;
+                    }
                     index++;
                 }
-                // Note that we can't just use "else" here, as we may have just stopped skipping
-                if (!skipping)
+                while (iterator.MoveNext())
                 {
-                    yield return item;
+                    yield return iterator.Current;
                 }
             }
         }
