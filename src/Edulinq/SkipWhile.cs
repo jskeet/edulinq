@@ -20,6 +20,23 @@ namespace Edulinq
 {
     public static partial class Enumerable
     {
+#if USE_SINGLE_TAKEWHILE_AND_SKIPWHILE_IMPLEMENTATION
+        public static IEnumerable<TSource> SkipWhile<TSource>(
+            this IEnumerable<TSource> source,
+            Func<TSource, bool> predicate)
+        {
+            if (source == null)
+            {
+                throw new ArgumentNullException("source");
+            }
+            if (predicate == null)
+            {
+                throw new ArgumentNullException("predicate");
+            }
+            // Just ignore the index
+            return SkipWhileImpl(source, (value, index) => predicate(value));
+        }
+#else
         public static IEnumerable<TSource> SkipWhile<TSource>(
             this IEnumerable<TSource> source,
             Func<TSource, bool> predicate)
@@ -57,6 +74,7 @@ namespace Edulinq
                 }
             }
         }
+#endif
 
         public static IEnumerable<TSource> SkipWhile<TSource>(
             this IEnumerable<TSource> source,
