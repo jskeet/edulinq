@@ -54,6 +54,7 @@
     <Compile Include="AllTest.cs" />
     <Compile Include="AnyTest.cs" />
     <Compile Include="ConcatTest.cs" />
+    <Compile Include="SkipTest.cs" />
     <Compile Include="DefaultIfEmptyTest.cs" />
     <Compile Include="DistinctTest.cs" />
     <Compile Include="ExceptTest.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="SelectManyTest.cs" />
     <Compile Include="SelectTest.cs" />
     <Compile Include="SingleTest.cs" />
+    <Compile Include="TakeTest.cs" />
     <Compile Include="ToListTest.cs" />
     <Compile Include="ToLookupTest.cs" />
     <Compile Include="UnionTest.cs" />
