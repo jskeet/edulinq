@@ -45,7 +45,10 @@
     <Compile Include="Any.cs" />
     <Compile Include="CompoundComparer.cs" />
     <Compile Include="Concat.cs" />
+    <Compile Include="ThenByDescending.cs" />
+    <Compile Include="OrderByDescending.cs" />
     <Compile Include="IOrderedEnumerable.cs" />
+    <Compile Include="OrderBy.cs" />
     <Compile Include="OrderedEnumerable.cs" />
     <Compile Include="ProjectionComparer.cs" />
     <Compile Include="ReverseComparer.cs" />
@@ -78,6 +81,7 @@
     <Compile Include="SelectMany.cs" />
     <Compile Include="Take.cs" />
     <Compile Include="TakeWhile.cs" />
+    <Compile Include="ThenBy.cs" />
     <Compile Include="ToArray.cs" />
     <Compile Include="ToDictionary.cs" />
     <Compile Include="ToList.cs" />
