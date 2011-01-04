@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>bin\Normal LINQ\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -43,8 +43,12 @@
     <Compile Include="Aggregate.cs" />
     <Compile Include="All.cs" />
     <Compile Include="Any.cs" />
+    <Compile Include="CompoundComparer.cs" />
     <Compile Include="Concat.cs" />
-    <Compile Include="InternalList.cs" />
+    <Compile Include="IOrderedEnumerable.cs" />
+    <Compile Include="OrderedEnumerable.cs" />
+    <Compile Include="ProjectionComparer.cs" />
+    <Compile Include="ReverseComparer.cs" />
     <Compile Include="SkipWhile.cs" />
     <Compile Include="Skip.cs" />
     <Compile Include="Except.cs" />
