@@ -40,6 +40,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbsoluteValueComparer.cs" />
     <Compile Include="CountingEnumerable.cs" />
     <Compile Include="DummyClass.cs" />
     <Compile Include="GenericOnlyCollection.cs" />
