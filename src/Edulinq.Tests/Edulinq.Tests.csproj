@@ -54,6 +54,7 @@
     <Compile Include="AllTest.cs" />
     <Compile Include="AnyTest.cs" />
     <Compile Include="ConcatTest.cs" />
+    <Compile Include="OrderByTest.cs" />
     <Compile Include="OrderByDescendingTest.cs" />
     <Compile Include="SkipWhileTest.cs" />
     <Compile Include="SkipTest.cs" />

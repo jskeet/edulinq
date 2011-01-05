@@ -13,22 +13,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 #endregion
-using Edulinq.TestSupport;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using Edulinq.TestSupport;
 using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace Edulinq.Tests
 {
     [TestFixture]
-    public class OrderByDescendingTest
+    public class OrderByTest
     {
         [Test]
         public void ExecutionIsDeferred()
         {
-            new ThrowingEnumerable().OrderByDescending(x => x);
+            new ThrowingEnumerable().OrderBy(x => x);
         }
 
         [Test]
@@ -36,7 +35,7 @@ namespace Edulinq.Tests
         {
             int[] source = null;
             Func<int, int> keySelector = x => x;
-            Assert.Throws<ArgumentNullException>(() => source.OrderByDescending(keySelector));
+            Assert.Throws<ArgumentNullException>(() => source.OrderBy(keySelector));
         }
 
         [Test]
@@ -44,7 +43,7 @@ namespace Edulinq.Tests
         {
             int[] source = new int[0];
             Func<int, int> keySelector = null;
-            Assert.Throws<ArgumentNullException>(() => source.OrderByDescending(keySelector));
+            Assert.Throws<ArgumentNullException>(() => source.OrderBy(keySelector));
         }
 
         [Test]
@@ -52,7 +51,7 @@ namespace Edulinq.Tests
         {
             int[] source = null;
             Func<int, int> keySelector = x => x;
-            Assert.Throws<ArgumentNullException>(() => source.OrderByDescending(keySelector, Comparer<int>.Default));
+            Assert.Throws<ArgumentNullException>(() => source.OrderBy(keySelector, Comparer<int>.Default));
         }
 
         [Test]
@@ -60,7 +59,7 @@ namespace Edulinq.Tests
         {
             int[] source = new int[0];
             Func<int, int> keySelector = null;
-            Assert.Throws<ArgumentNullException>(() => source.OrderByDescending(keySelector, Comparer<int>.Default));
+            Assert.Throws<ArgumentNullException>(() => source.OrderBy(keySelector, Comparer<int>.Default));
         }
 
         [Test]
@@ -72,9 +71,9 @@ namespace Edulinq.Tests
                 new { Value = 2, Key = "ghi" },
                 new { Value = 3, Key = "def" }
             };
-            var query = source.OrderByDescending(x => x.Key)
+            var query = source.OrderBy(x => x.Key)
                               .Select(x => x.Value);
-            query.AssertSequenceEqual(2, 3, 1);
+            query.AssertSequenceEqual(1, 3, 2);
         }
 
         [Test]
@@ -86,9 +85,9 @@ namespace Edulinq.Tests
                 new { Value = 2, Key = (string) null },
                 new { Value = 3, Key = "def" }
             };
-            var query = source.OrderByDescending(x => x.Key)
+            var query = source.OrderBy(x => x.Key)
                               .Select(x => x.Value);
-            query.AssertSequenceEqual(3, 1, 2);
+            query.AssertSequenceEqual(2, 1, 3);
         }
 
         [Test]
@@ -101,13 +100,13 @@ namespace Edulinq.Tests
                 new { Value = 3, Key = "def" },
                 new { Value = 4, Key = "abc" },
             };
-            var query = source.OrderByDescending(x => x.Key)
+            var query = source.OrderBy(x => x.Key)
                               .Select(x => x.Value);
-            query.AssertSequenceEqual(2, 3, 1, 4);
+            query.AssertSequenceEqual(1, 4, 2, 3);
         }
 
         [Test]
-        public void NullComparerIsDefault()
+        public void CustomOrdinalComparer()
         {
             var source = new[]
             {
@@ -116,14 +115,14 @@ namespace Edulinq.Tests
                 new { Value = 3, Key = "DEF" }
             };
             // Upper case comes before lower case in Unicode and thus
-            // in the default (ordinal) comparer
-            var query = source.OrderByDescending(x => x.Key, null)
+            // in the ordinal comparer
+            var query = source.OrderBy(x => x.Key, StringComparer.Ordinal)
                               .Select(x => x.Value);
-            query.AssertSequenceEqual(1, 2, 3);
+            query.AssertSequenceEqual(3, 2, 1);
         }
 
         [Test]
-        public void CustomComparer()
+        public void CustomCaseInsensitiveComparer()
         {
             var source = new[]
             {
@@ -131,9 +130,9 @@ namespace Edulinq.Tests
                 new { Value = 2, Key = "GHI" },
                 new { Value = 3, Key = "DEF" }
             };
-            var query = source.OrderByDescending(x => x.Key, StringComparer.OrdinalIgnoreCase)
+            var query = source.OrderBy(x => x.Key, StringComparer.OrdinalIgnoreCase)
                               .Select(x => x.Value);
-            query.AssertSequenceEqual(2, 3, 1);
+            query.AssertSequenceEqual(1, 3, 2);
         }
     }
 }
