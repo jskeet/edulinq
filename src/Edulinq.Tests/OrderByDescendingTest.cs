@@ -13,11 +13,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 #endregion
-using Edulinq.TestSupport;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using Edulinq.TestSupport;
 using NUnit.Framework;
 
 namespace Edulinq.Tests
@@ -111,9 +110,9 @@ namespace Edulinq.Tests
         {
             var source = new[]
             {
-                new { Value = 1, Key = 5 },
-                new { Value = 2, Key = -5 },
-                new { Value = 3, Key = 1 }
+                new { Value = 1, Key = 15 },
+                new { Value = 2, Key = -13 },
+                new { Value = 3, Key = 11 }
             };
             var query = source.OrderByDescending(x => x.Key, null)
                               .Select(x => x.Value);
@@ -125,21 +124,13 @@ namespace Edulinq.Tests
         {
             var source = new[]
             {
-                new { Value = 1, Key = 5 },
-                new { Value = 2, Key = -5 },
-                new { Value = 3, Key = 1 }
+                new { Value = 1, Key = 15 },
+                new { Value = 2, Key = -13 },
+                new { Value = 3, Key = 11 }
             };
             var query = source.OrderByDescending(x => x.Key, new AbsoluteValueComparer())
                               .Select(x => x.Value);
             query.AssertSequenceEqual(1, 2, 3);
-        }
-
-        private sealed class AbsoluteValueComparer : IComparer<int>
-        {
-            public int Compare(int x, int y)
-            {
-                return Math.Abs(x).CompareTo(Math.Abs(y));
-            }
         }
     }
 }

@@ -110,9 +110,9 @@ namespace Edulinq.Tests
         {
             var source = new[]
             {
-                new { Value = 1, Key = 5 },
-                new { Value = 2, Key = -5 },
-                new { Value = 3, Key = 1 }
+                new { Value = 1, Key = 15 },
+                new { Value = 2, Key = -13 },
+                new { Value = 3, Key = 11 }
             };
             var query = source.OrderBy(x => x.Key, null)
                               .Select(x => x.Value);
@@ -124,21 +124,13 @@ namespace Edulinq.Tests
         {
             var source = new[]
             {
-                new { Value = 1, Key = 5 },
-                new { Value = 2, Key = -5 },
-                new { Value = 3, Key = 1 }
+                new { Value = 1, Key = 15 },
+                new { Value = 2, Key = -13 },
+                new { Value = 3, Key = 11 }
             };
             var query = source.OrderBy(x => x.Key, new AbsoluteValueComparer())
                               .Select(x => x.Value);
-            query.AssertSequenceEqual(3, 1, 2);
-        }
-
-        private sealed class AbsoluteValueComparer : IComparer<int>
-        {
-            public int Compare(int x, int y)
-            {
-                return Math.Abs(x).CompareTo(Math.Abs(y));
-            }
+            query.AssertSequenceEqual(3, 2, 1);
         }
     }
 }
