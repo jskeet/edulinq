@@ -68,9 +68,9 @@ namespace Edulinq.Tests
         {
             var source = new[]
             {
-                new { Value = 1, Key = "abc" },
-                new { Value = 2, Key = "ghi" },
-                new { Value = 3, Key = "def" }
+                new { Value = 1, Key = 10 },
+                new { Value = 2, Key = 12 },
+                new { Value = 3, Key = 11 }
             };
             var query = source.OrderByDescending(x => x.Key)
                               .Select(x => x.Value);
@@ -86,7 +86,7 @@ namespace Edulinq.Tests
                 new { Value = 2, Key = (string) null },
                 new { Value = 3, Key = "def" }
             };
-            var query = source.OrderByDescending(x => x.Key)
+            var query = source.OrderByDescending(x => x.Key, StringComparer.Ordinal)
                               .Select(x => x.Value);
             query.AssertSequenceEqual(3, 1, 2);
         }
@@ -96,10 +96,10 @@ namespace Edulinq.Tests
         {
             var source = new[]
             {
-                new { Value = 1, Key = "abc" },
-                new { Value = 2, Key = "def" },
-                new { Value = 3, Key = "def" },
-                new { Value = 4, Key = "abc" },
+                new { Value = 1, Key = 10 },
+                new { Value = 2, Key = 11 },
+                new { Value = 3, Key = 11 },
+                new { Value = 4, Key = 10 },
             };
             var query = source.OrderByDescending(x => x.Key)
                               .Select(x => x.Value);
@@ -111,15 +111,13 @@ namespace Edulinq.Tests
         {
             var source = new[]
             {
-                new { Value = 1, Key = "abc" },
-                new { Value = 2, Key = "GHI" },
-                new { Value = 3, Key = "DEF" }
+                new { Value = 1, Key = 5 },
+                new { Value = 2, Key = -5 },
+                new { Value = 3, Key = 1 }
             };
-            // Upper case comes before lower case in Unicode and thus
-            // in the default (ordinal) comparer
             var query = source.OrderByDescending(x => x.Key, null)
                               .Select(x => x.Value);
-            query.AssertSequenceEqual(1, 2, 3);
+            query.AssertSequenceEqual(1, 3, 2);
         }
 
         [Test]
@@ -127,13 +125,21 @@ namespace Edulinq.Tests
         {
             var source = new[]
             {
-                new { Value = 1, Key = "abc" },
-                new { Value = 2, Key = "GHI" },
-                new { Value = 3, Key = "DEF" }
+                new { Value = 1, Key = 5 },
+                new { Value = 2, Key = -5 },
+                new { Value = 3, Key = 1 }
             };
-            var query = source.OrderByDescending(x => x.Key, StringComparer.OrdinalIgnoreCase)
+            var query = source.OrderByDescending(x => x.Key, new AbsoluteValueComparer())
                               .Select(x => x.Value);
-            query.AssertSequenceEqual(2, 3, 1);
+            query.AssertSequenceEqual(1, 2, 3);
+        }
+
+        private sealed class AbsoluteValueComparer : IComparer<int>
+        {
+            public int Compare(int x, int y)
+            {
+                return Math.Abs(x).CompareTo(Math.Abs(y));
+            }
         }
     }
 }

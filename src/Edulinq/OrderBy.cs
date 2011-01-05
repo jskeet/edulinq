@@ -34,11 +34,11 @@ namespace Edulinq
         {
             if (source == null)
             {
-                throw new ArgumentException("source");
+                throw new ArgumentNullException("source");
             }
             if (keySelector == null)
             {
-                throw new ArgumentException("keySelector");
+                throw new ArgumentNullException("keySelector");
             }
             return new OrderedEnumerable<TSource>(source,
                 new ProjectionComparer<TSource, TKey>(keySelector, comparer));

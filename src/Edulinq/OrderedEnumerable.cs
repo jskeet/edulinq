@@ -38,7 +38,7 @@ namespace Edulinq
                 throw new ArgumentNullException("keySelector");
             }
             IComparer<TElement> secondaryComparer =
-                new ProjectionComparer<TElement, TKey> (keySelector, comparer);
+                new ProjectionComparer<TElement, TKey>(keySelector, comparer);
             if (descending)
             {
                 secondaryComparer = new ReverseComparer<TElement>(secondaryComparer);
@@ -58,7 +58,7 @@ namespace Edulinq
                 int minIndex = 0;
                 for (int i = 1; i < elements.Count; i++)
                 {
-                    if (currentComparer.Compare(minElement, elements[i]) < 0)
+                    if (currentComparer.Compare(elements[i], minElement) < 0)
                     {
                         minElement = elements[i];
                         minIndex = i;

@@ -24,7 +24,7 @@ namespace Edulinq
             this IEnumerable<TSource> source,
             Func<TSource, TKey> keySelector)
         {
-            return OrderBy(source, keySelector, Comparer<TKey>.Default);
+            return OrderByDescending(source, keySelector, Comparer<TKey>.Default);
         }
 
         public static IOrderedEnumerable<TSource> OrderByDescending<TSource, TKey>(
@@ -34,11 +34,11 @@ namespace Edulinq
         {
             if (source == null)
             {
-                throw new ArgumentException("source");
+                throw new ArgumentNullException("source");
             }
             if (keySelector == null)
             {
-                throw new ArgumentException("keySelector");
+                throw new ArgumentNullException("keySelector");
             }
             IComparer<TSource> sourceComparer = new ProjectionComparer<TSource, TKey>(keySelector, comparer);
             sourceComparer = new ReverseComparer<TSource>(sourceComparer);
