@@ -24,7 +24,7 @@ namespace Edulinq
             this IOrderedEnumerable<TSource> source,
             Func<TSource, TKey> keySelector)
         {
-            return ThenBy(source, keySelector, Comparer<TKey>.Default);
+            return ThenByDescending(source, keySelector, Comparer<TKey>.Default);
         }
 
         public static IOrderedEnumerable<TSource> ThenByDescending<TSource, TKey>(
