@@ -37,7 +37,8 @@ namespace Edulinq
             {
                 throw new ArgumentNullException("keySelector");
             }
-            IComparer<TElement> secondaryComparer = new ProjectionComparer<TElement, TKey> (keySelector, comparer);
+            IComparer<TElement> secondaryComparer =
+                new ProjectionComparer<TElement, TKey> (keySelector, comparer);
             if (descending)
             {
                 secondaryComparer = new ReverseComparer<TElement>(secondaryComparer);
