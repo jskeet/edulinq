@@ -22,7 +22,7 @@ namespace Edulinq
 {
     public static partial class Enumerable
     {
-        public static TSource[] ToBuffer<TSource>(this IEnumerable<TSource> source, out int count)
+        internal static TSource[] ToBuffer<TSource>(this IEnumerable<TSource> source, out int count)
         {
             // Optimize for ICollection<T>
             ICollection<TSource> collection = source as ICollection<TSource>;
