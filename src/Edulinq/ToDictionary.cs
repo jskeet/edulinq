@@ -61,7 +61,10 @@ namespace Edulinq
             {
                 throw new ArgumentNullException("elementSelector");
             }
-            Dictionary<TKey, TElement> ret = new Dictionary<TKey, TElement>(comparer ?? EqualityComparer<TKey>.Default);
+            comparer = comparer ?? EqualityComparer<TKey>.Default;
+            ICollection<TSource> list = source as ICollection<TSource>;
+            var ret = list == null ? new Dictionary<TKey, TElement>(comparer)
+                                   : new Dictionary<TKey, TElement>(list.Count, comparer);
             foreach (TSource item in source)
             {
                 ret.Add(keySelector(item), elementSelector(item));
