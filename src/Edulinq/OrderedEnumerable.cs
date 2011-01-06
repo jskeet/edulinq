@@ -80,7 +80,7 @@ namespace Edulinq
                 }
                 else
                 {
-                    int mid = (left + right)/2;
+                    int mid = (left + right) / 2;
                     MergeSort(data, tmp, left, mid);
                     MergeSort(data, tmp, mid + 1, right);
                     Merge(data, tmp, left, mid + 1, right);
