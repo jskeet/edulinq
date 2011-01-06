@@ -71,16 +71,18 @@ namespace MergeSortTest
                                            .ToList();
             stopwatch.Reset();
             stopwatch.Start();
-            List<double> expected = input.OrderBy(x => x, TruncatedDoubleComparer.Instance)
-                                         .ToList();
+            List<double> actual = global::Edulinq.Enumerable.OrderBy(input, x => x, TruncatedDoubleComparer.Instance)
+                                                                 .ToList();
             stopwatch.Stop();
-            totalFrameworkTicks += stopwatch.ElapsedTicks;
+            totalMergeTicks += stopwatch.ElapsedTicks;
 
             stopwatch.Reset();
             stopwatch.Start();
-            double[] actual = MergeSort(input, TruncatedDoubleComparer.Instance);
+            List<double> expected = global::System.Linq.Enumerable.OrderBy(input, x => x, TruncatedDoubleComparer.Instance)
+                                                                  .ToList();
             stopwatch.Stop();
-            totalMergeTicks += stopwatch.ElapsedTicks;
+            totalFrameworkTicks += stopwatch.ElapsedTicks;
+
             return expected.SequenceEqual(actual);
         }
 
@@ -140,6 +142,13 @@ namespace MergeSortTest
                     {
                         leftElement = data[leftCursor];
                     }
+                    else
+                    {
+                        // Only the right list is still active. Therefore tmpCursor must equal rightCursor,
+                        // so there's no point in copying the right list to tmp and back again. Just copy
+                        // the already-sorted bits back into data.
+                        Array.Copy(tmp, left, data, left, tmpCursor - left);
+                    }
                 }
                 else
                 {
@@ -150,13 +159,16 @@ namespace MergeSortTest
                     {
                         rightElement = data[rightCursor];
                     }
+                    else
+                    {
+                        // Only the left list is still active. Therefore we can copy the remainder of
+                        // the left list directly to the appropriate place in data, and then copy the
+                        // appropriate portion of tmp back.
+                        Array.Copy(data, leftCursor, data, tmpCursor, mid - leftCursor);
+                        Array.Copy(tmp, left, data, left, tmpCursor - left);
+                    }
                 }
             }
-            int remainingLeftElements = mid - leftCursor;
-            Array.Copy(data, leftCursor, tmp, tmpCursor, remainingLeftElements);
-            tmpCursor += remainingLeftElements;
-            Array.Copy(data, rightCursor, tmp, tmpCursor, right + 1 - rightCursor);
-            Array.Copy(tmp, left, data, left, right - left + 1);
         }
 
         private class TruncatedDoubleComparer : IComparer<double>

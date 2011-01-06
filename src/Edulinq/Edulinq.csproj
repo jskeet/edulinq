@@ -83,6 +83,7 @@
     <Compile Include="TakeWhile.cs" />
     <Compile Include="ThenBy.cs" />
     <Compile Include="ToArray.cs" />
+    <Compile Include="ToBuffer.cs" />
     <Compile Include="ToDictionary.cs" />
     <Compile Include="ToList.cs" />
     <Compile Include="ToLookup.cs" />
