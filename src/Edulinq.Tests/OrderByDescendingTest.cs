@@ -132,5 +132,26 @@ namespace Edulinq.Tests
                               .Select(x => x.Value);
             query.AssertSequenceEqual(1, 2, 3);
         }
+
+        [Test]
+        [Ignore("Fails in LINQ to Objects. See Connect issue: http://goo.gl/p12su")]
+        public void CustomExtremeComparer()
+        {
+            int[] values = { 1, 3, 2, 4, 8, 5, 7, 6 };
+            var query = values.OrderByDescending(x => x, new ExtremeComparer());
+            query.AssertSequenceEqual(8, 7, 6, 5, 4, 3, 2, 1);
+        }
+
+        // Comparer which is equivalent to the default comparer for int, but
+        // always returns int.MinValue, 0, or int.MaxValue.
+        private class ExtremeComparer : IComparer<int>
+        {
+            public int Compare(int x, int y)
+            {
+                return x == y ? 0
+                    : x < y ? int.MinValue
+                    : int.MaxValue;
+            }
+        }
     }
 }
