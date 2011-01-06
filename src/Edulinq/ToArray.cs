@@ -52,29 +52,8 @@ namespace Edulinq
             {
                 throw new ArgumentNullException("source");
             }
-
-            // Optimize for ICollection<T>
-            ICollection<TSource> collection = source as ICollection<TSource>;
-            if (collection != null)
-            {
-                TSource[] tmp = new TSource[collection.Count];
-                collection.CopyTo(tmp, 0);
-                return tmp;
-            }
-            
-            // We'll have to loop through, creating and copying arrays as we go
-            TSource[] ret = new TSource[16];
-            int count = 0;
-            foreach (TSource item in source)
-            {
-                // Need to expand...
-                if (count == ret.Length)
-                {
-                    Array.Resize(ref ret, ret.Length * 2);
-                }
-                ret[count++] = item;
-            }
-
+            int count;
+            TSource[] ret = source.ToBuffer(out count);
             // Now create another copy if we have to, in order to get an array of the
             // right size
             if (count != ret.Length)
