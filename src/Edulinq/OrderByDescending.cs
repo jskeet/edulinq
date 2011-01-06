@@ -40,9 +40,8 @@ namespace Edulinq
             {
                 throw new ArgumentNullException("keySelector");
             }
-            IComparer<TSource> sourceComparer = new ProjectionComparer<TSource, TKey>(keySelector, comparer);
-            sourceComparer = new ReverseComparer<TSource>(sourceComparer);
-            return new OrderedEnumerable<TSource>(source, sourceComparer);
+            comparer = new ReverseComparer<TKey>(comparer ?? Comparer<TKey>.Default);
+            return new OrderedEnumerable<TSource, TKey>(source, keySelector, comparer);
         }
     }
 }

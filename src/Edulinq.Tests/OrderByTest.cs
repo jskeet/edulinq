@@ -132,5 +132,15 @@ namespace Edulinq.Tests
                               .Select(x => x.Value);
             query.AssertSequenceEqual(3, 2, 1);
         }
+
+        [Test]
+        public void KeySelectorIsCalledExactlyOncePerElement()
+        {
+            int[] values = { 1, 5, 4, 2, 3, 7, 6, 8, 9 };
+            int count = 0;
+            var query = values.OrderBy(x => { count++; return x; });
+            query.AssertSequenceEqual(1, 2, 3, 4, 5, 6, 7, 8, 9);
+            Assert.AreEqual(9, count);
+        }
     }
 }
