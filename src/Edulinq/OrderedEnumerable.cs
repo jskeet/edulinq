@@ -96,17 +96,15 @@ namespace Edulinq
             int tmpCursor = left;
             TElement leftElement = data[leftCursor];
             TElement rightElement = data[rightCursor];
-            // By never merging tiny lists, we know we'll always have valid starting points
-            bool bothListsActive = true;
-            while (bothListsActive)
+            // By never merging empty lists, we know we'll always have valid starting points
+            while (true)
             {
                 // When equal, use the left element to achieve stability
                 if (currentComparer.Compare(leftElement, rightElement) <= 0)
                 {
                     tmp[tmpCursor++] = leftElement;
                     leftCursor++;
-                    bothListsActive = leftCursor < mid;
-                    if (bothListsActive)
+                    if (leftCursor < mid)
                     {
                         leftElement = data[leftCursor];
                     }
@@ -116,14 +114,14 @@ namespace Edulinq
                         // so there's no point in copying the right list to tmp and back again. Just copy
                         // the already-sorted bits back into data.
                         Array.Copy(tmp, left, data, left, tmpCursor - left);
+                        return;
                     }
                 }
                 else
                 {
                     tmp[tmpCursor++] = rightElement;
                     rightCursor++;
-                    bothListsActive = rightCursor <= right;
-                    if (bothListsActive)
+                    if (rightCursor <= right)
                     {
                         rightElement = data[rightCursor];
                     }
@@ -134,6 +132,7 @@ namespace Edulinq
                         // appropriate portion of tmp back.
                         Array.Copy(data, leftCursor, data, tmpCursor, mid - leftCursor);
                         Array.Copy(tmp, left, data, left, tmpCursor - left);
+                        return;
                     }
                 }
             }
