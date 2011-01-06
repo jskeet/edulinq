@@ -43,6 +43,7 @@
     <Compile Include="Aggregate.cs" />
     <Compile Include="All.cs" />
     <Compile Include="Any.cs" />
+    <Compile Include="CompositeKey.cs" />
     <Compile Include="CompoundComparer.cs" />
     <Compile Include="Concat.cs" />
     <Compile Include="ThenByDescending.cs" />
