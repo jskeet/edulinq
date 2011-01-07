@@ -31,7 +31,7 @@ namespace Edulinq
         {
             this.source = source;
             this.compositeSelector = compositeSelector;
-            this.compositeComparer = compositeComparer ?? Comparer<TCompositeKey>.Default;
+            this.compositeComparer = compositeComparer;
         }
 
         public IOrderedEnumerable<TElement> CreateOrderedEnumerable<TKey>(Func<TElement, TKey> keySelector, IComparer<TKey> comparer, bool descending)
@@ -82,22 +82,42 @@ namespace Edulinq
                 keys[i] = compositeSelector(data[i]);
             }
 
-            QuickSort(indexes, keys, 0, count - 1);
+            int nextYield = 0;
 
-            for (int i = 0; i < indexes.Length; i++)
+            var stack = new Stack<LeftRight>();
+            stack.Push(new LeftRight(0, count - 1));
+            while (stack.Count > 0)
             {
-                yield return data[indexes[i]];
+                LeftRight leftRight = stack.Pop();
+                int left = leftRight.left;
+                int right = leftRight.right;
+                if (right > left)
+                {
+                    int pivot = (left + right) / 2;
+                    int pivotPosition = Partition(indexes, keys, left, right, pivot);
+                    // Push the right sublist first, so that we *pop* the
+                    // left sublist first
+                    stack.Push(new LeftRight(pivotPosition + 1, right));
+                    stack.Push(new LeftRight(left, pivotPosition - 1));
+                }
+                else
+                {
+                    while (nextYield <= right)
+                    {
+                        yield return data[indexes[nextYield]];
+                        nextYield++;
+                    }
+                }
             }
         }
 
-        private void QuickSort(int[] indexes, TCompositeKey[] keys, int left, int right)
+        private struct LeftRight
         {
-            if (right > left)
+            internal int left, right;
+            internal LeftRight(int left, int right)
             {
-                int pivot = (left + right) / 2;
-                int pivotPosition = Partition(indexes, keys, left, right, pivot);
-                QuickSort(indexes, keys, left, pivotPosition - 1);
-                QuickSort(indexes, keys, pivotPosition + 1, right);
+                this.left = left;
+                this.right = right;
             }
         }
 
