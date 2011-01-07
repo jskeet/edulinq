@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Edulinq.Tests", "Edulinq.Te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Edulinq.TestSupport", "Edulinq.TestSupport\Edulinq.TestSupport.csproj", "{C552666B-5660-445A-AA21-CF807D03C83E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MergeSortTest", "MergeSortTest\MergeSortTest.csproj", "{CE0C1AE8-70B3-4194-810A-0634FF9F5698}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,18 +55,6 @@ Global
 		{C552666B-5660-445A-AA21-CF807D03C83E}.Release|Any CPU.ActiveCfg = Edulinq implementation|Any CPU
 		{C552666B-5660-445A-AA21-CF807D03C83E}.Release|Any CPU.Build.0 = Edulinq implementation|Any CPU
 		{C552666B-5660-445A-AA21-CF807D03C83E}.Release|x64.ActiveCfg = Edulinq implementation|Any CPU
-		{CE0C1AE8-70B3-4194-810A-0634FF9F5698}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CE0C1AE8-70B3-4194-810A-0634FF9F5698}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CE0C1AE8-70B3-4194-810A-0634FF9F5698}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{CE0C1AE8-70B3-4194-810A-0634FF9F5698}.Edulinq implementation|Any CPU.ActiveCfg = Release|Any CPU
-		{CE0C1AE8-70B3-4194-810A-0634FF9F5698}.Edulinq implementation|Any CPU.Build.0 = Release|Any CPU
-		{CE0C1AE8-70B3-4194-810A-0634FF9F5698}.Edulinq implementation|x64.ActiveCfg = Release|Any CPU
-		{CE0C1AE8-70B3-4194-810A-0634FF9F5698}.Normal LINQ|Any CPU.ActiveCfg = Release|Any CPU
-		{CE0C1AE8-70B3-4194-810A-0634FF9F5698}.Normal LINQ|Any CPU.Build.0 = Release|Any CPU
-		{CE0C1AE8-70B3-4194-810A-0634FF9F5698}.Normal LINQ|x64.ActiveCfg = Release|Any CPU
-		{CE0C1AE8-70B3-4194-810A-0634FF9F5698}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CE0C1AE8-70B3-4194-810A-0634FF9F5698}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CE0C1AE8-70B3-4194-810A-0634FF9F5698}.Release|x64.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
