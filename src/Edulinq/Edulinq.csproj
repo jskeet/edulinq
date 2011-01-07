@@ -44,14 +44,12 @@
     <Compile Include="All.cs" />
     <Compile Include="Any.cs" />
     <Compile Include="CompositeKey.cs" />
-    <Compile Include="CompoundComparer.cs" />
     <Compile Include="Concat.cs" />
     <Compile Include="ThenByDescending.cs" />
     <Compile Include="OrderByDescending.cs" />
     <Compile Include="IOrderedEnumerable.cs" />
     <Compile Include="OrderBy.cs" />
     <Compile Include="OrderedEnumerable.cs" />
-    <Compile Include="ProjectionComparer.cs" />
     <Compile Include="ReverseComparer.cs" />
     <Compile Include="SkipWhile.cs" />
     <Compile Include="Skip.cs" />
