@@ -113,7 +113,7 @@ namespace Edulinq
 
         private struct LeftRight
         {
-            internal int left, right;
+            internal readonly int left, right;
             internal LeftRight(int left, int right)
             {
                 this.left = left;
