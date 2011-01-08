@@ -46,6 +46,7 @@
     <Compile Include="CompositeKey.cs" />
     <Compile Include="Concat.cs" />
     <Compile Include="Reverse.cs" />
+    <Compile Include="Sum.cs" />
     <Compile Include="ThenByDescending.cs" />
     <Compile Include="OrderByDescending.cs" />
     <Compile Include="IOrderedEnumerable.cs" />
