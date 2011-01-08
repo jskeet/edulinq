@@ -51,7 +51,7 @@ namespace Edulinq.Tests
         }
 
         [Test]
-        public void ListsAreBuffered()
+        public void ArraysAreBuffered()
         {
             // A sneaky implementation may try to optimize for the case where the collection
             // implements IList or (even more "reliable") is an array: it mustn't do this,
