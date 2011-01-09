@@ -23,10 +23,6 @@ namespace Edulinq
         #region Int32
         public static int Max(this IEnumerable<int> source)
         {
-            if (source == null)
-            {
-                throw new ArgumentNullException("source");
-            }
             return PrimitiveMax(source);
         }
 
@@ -40,10 +36,6 @@ namespace Edulinq
 
         public static int? Max(this IEnumerable<int?> source)
         {
-            if (source == null)
-            {
-                throw new ArgumentNullException("source");
-            }
             return NullablePrimitiveMax(source);
         }
 
@@ -59,10 +51,6 @@ namespace Edulinq
         #region Int64
         public static long Max(this IEnumerable<long> source)
         {
-            if (source == null)
-            {
-                throw new ArgumentNullException("source");
-            }
             return PrimitiveMax(source);
         }
 
@@ -76,10 +64,6 @@ namespace Edulinq
 
         public static long? Max(this IEnumerable<long?> source)
         {
-            if (source == null)
-            {
-                throw new ArgumentNullException("source");
-            }
             return NullablePrimitiveMax(source);
         }
 
@@ -95,11 +79,7 @@ namespace Edulinq
         #region Double
         public static double Max(this IEnumerable<double> source)
         {
-            if (source == null)
-            {
-                throw new ArgumentNullException("source");
-            }
-            return PrimitiveMax(source);
+           return PrimitiveMax(source);
         }
 
         public static double Max<TSource>(
@@ -112,10 +92,6 @@ namespace Edulinq
 
         public static double? Max(this IEnumerable<double?> source)
         {
-            if (source == null)
-            {
-                throw new ArgumentNullException("source");
-            }
             return NullablePrimitiveMax(source);
         }
 
@@ -131,10 +107,6 @@ namespace Edulinq
         #region Single
         public static float Max(this IEnumerable<float> source)
         {
-            if (source == null)
-            {
-                throw new ArgumentNullException("source");
-            }
             return PrimitiveMax(source);
         }
 
@@ -148,10 +120,6 @@ namespace Edulinq
 
         public static float? Max(this IEnumerable<float?> source)
         {
-            if (source == null)
-            {
-                throw new ArgumentNullException("source");
-            }
             return NullablePrimitiveMax(source);
         }
 
@@ -167,10 +135,6 @@ namespace Edulinq
         #region Decimal
         public static decimal Max(this IEnumerable<decimal> source)
         {
-            if (source == null)
-            {
-                throw new ArgumentNullException("source");
-            }
             return PrimitiveMax(source);
         }
 
@@ -184,10 +148,6 @@ namespace Edulinq
 
         public static decimal? Max(this IEnumerable<decimal?> source)
         {
-            if (source == null)
-            {
-                throw new ArgumentNullException("source");
-            }
             return NullablePrimitiveMax(source);
         }
 
