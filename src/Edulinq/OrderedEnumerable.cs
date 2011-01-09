@@ -93,7 +93,8 @@ namespace Edulinq
                 int right = leftRight.right;
                 if (right > left)
                 {
-                    int pivot = (left + right) / 2;
+                    // Note: not just (left + right) / 2 in order to avoid a common bug: http://goo.gl/d4d4
+                    int pivot = left + (right - left) / 2;
                     int pivotPosition = Partition(indexes, keys, left, right, pivot);
                     // Push the right sublist first, so that we *pop* the
                     // left sublist first

@@ -45,6 +45,8 @@
     <Compile Include="Any.cs" />
     <Compile Include="CompositeKey.cs" />
     <Compile Include="Concat.cs" />
+    <Compile Include="Min.cs" />
+    <Compile Include="Max.cs" />
     <Compile Include="Reverse.cs" />
     <Compile Include="Sum.cs" />
     <Compile Include="ThenByDescending.cs" />
