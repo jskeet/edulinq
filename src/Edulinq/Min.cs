@@ -23,10 +23,6 @@ namespace Edulinq
         #region Int32
         public static int Min(this IEnumerable<int> source)
         {
-            if (source == null)
-            {
-                throw new ArgumentNullException("source");
-            }
             return PrimitiveMin(source);
         }
 
@@ -40,10 +36,6 @@ namespace Edulinq
 
         public static int? Min(this IEnumerable<int?> source)
         {
-            if (source == null)
-            {
-                throw new ArgumentNullException("source");
-            }
             return NullablePrimitiveMin(source);
         }
 
@@ -59,10 +51,6 @@ namespace Edulinq
         #region Int64
         public static long Min(this IEnumerable<long> source)
         {
-            if (source == null)
-            {
-                throw new ArgumentNullException("source");
-            }
             return PrimitiveMin(source);
         }
 
@@ -76,10 +64,6 @@ namespace Edulinq
 
         public static long? Min(this IEnumerable<long?> source)
         {
-            if (source == null)
-            {
-                throw new ArgumentNullException("source");
-            }
             return NullablePrimitiveMin(source);
         }
 
@@ -95,10 +79,6 @@ namespace Edulinq
         #region Double
         public static double Min(this IEnumerable<double> source)
         {
-            if (source == null)
-            {
-                throw new ArgumentNullException("source");
-            }
             return PrimitiveMin(source);
         }
 
@@ -112,10 +92,6 @@ namespace Edulinq
 
         public static double? Min(this IEnumerable<double?> source)
         {
-            if (source == null)
-            {
-                throw new ArgumentNullException("source");
-            }
             return NullablePrimitiveMin(source);
         }
 
@@ -131,10 +107,6 @@ namespace Edulinq
         #region Single
         public static float Min(this IEnumerable<float> source)
         {
-            if (source == null)
-            {
-                throw new ArgumentNullException("source");
-            }
             return PrimitiveMin(source);
         }
 
@@ -148,10 +120,6 @@ namespace Edulinq
 
         public static float? Min(this IEnumerable<float?> source)
         {
-            if (source == null)
-            {
-                throw new ArgumentNullException("source");
-            }
             return NullablePrimitiveMin(source);
         }
 
@@ -167,10 +135,6 @@ namespace Edulinq
         #region Decimal
         public static decimal Min(this IEnumerable<decimal> source)
         {
-            if (source == null)
-            {
-                throw new ArgumentNullException("source");
-            }
             return PrimitiveMin(source);
         }
 
@@ -184,10 +148,6 @@ namespace Edulinq
 
         public static decimal? Min(this IEnumerable<decimal?> source)
         {
-            if (source == null)
-            {
-                throw new ArgumentNullException("source");
-            }
             return NullablePrimitiveMin(source);
         }
 

@@ -232,6 +232,13 @@ namespace Edulinq.Tests
         }
 
         [Test]
+        public void SimpleNullableValueTypeSequenceNoSelector()
+        {
+            char?[] source = { 'z', null, 'a', null, 'a', '0' };
+            Assert.AreEqual((char?) '0', source.Min());
+        }
+
+        [Test]
         public void AllNullSequenceOfStrings()
         {
             string[] source = { null, null, null };
@@ -253,6 +260,13 @@ namespace Edulinq.Tests
         {
             Guid?[] source = { null, null, null };
             Assert.IsNull(source.Min());
+        }
+
+        [Test]
+        public void IncomparableValues()
+        {
+            MinTest[] source = { new MinTest(), new MinTest() };
+            Assert.Throws<ArgumentException>(() => source.Min());
         }
         #endregion
     }

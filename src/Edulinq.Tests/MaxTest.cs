@@ -233,6 +233,13 @@ namespace Edulinq.Tests
         }
 
         [Test]
+        public void SimpleNullableValueTypeSequenceNoSelector()
+        {
+            char?[] source = { 'z', null, 'a', null, 'a', '0' };
+            Assert.AreEqual((char?)'z', source.Max());
+        }
+
+        [Test]
         public void AllNullSequenceOfStrings()
         {
             string[] source = { null, null, null };
@@ -254,6 +261,13 @@ namespace Edulinq.Tests
         {
             Guid?[] source = { null, null, null };
             Assert.IsNull(source.Max());
+        }
+
+        [Test]
+        public void IncomparableValues()
+        {
+            MaxTest[] source = { new MaxTest(), new MaxTest() };
+            Assert.Throws<ArgumentException>(() => source.Max());
         }
         #endregion
     }
