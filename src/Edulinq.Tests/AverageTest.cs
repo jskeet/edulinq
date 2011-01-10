@@ -156,8 +156,19 @@ namespace Edulinq.Tests
             string[] source = { "", null, "abcd", null, "a", null, "b" };
             Assert.AreEqual((double?) 1.5d, source.Average(x => x == null ? null : (int?) x.Length));
         }
+
+        [Test]
+        [Ignore("Takes an enormous amount of time!")]
+        public void MoreThanInt32MaxValueElements()
+        {
+            var query = Enumerable.Repeat(1, int.MaxValue)
+                                  .Concat(Enumerable.Repeat(1, 5));
+            Assert.AreEqual(1d, query.Average());
+        }
+
         #endregion
 
+        #region Floating point fun
         [Test]
         public void SingleUsesDoubleAccumulator()
         {
@@ -166,6 +177,14 @@ namespace Edulinq.Tests
             float[] array = { 20000000f, 1f, 1f, 2f };
             Assert.AreEqual(5000001f, array.Average());
         }
+
+        [Test]
+        public void SequenceContainingNan()
+        {
+            double[] array = { 1, 2, 3, double.NaN, 4, 5, 6 };
+            Assert.IsNaN(array.Average());
+        }
+        #endregion
 
         #region Overflow tests
         [Test]
@@ -179,7 +198,8 @@ namespace Edulinq.Tests
         [Test]
         public void Int64OverflowsAtInt64MaxValue()
         {
-            long[] source = { long.MaxValue, 1 };
+            long[] source = { long.MaxValue, long.MaxValue,
+                              -long.MaxValue, -long.MaxValue};
             Assert.Throws<OverflowException>(() => source.Average());
         }
 
@@ -210,7 +230,8 @@ namespace Edulinq.Tests
         [Test]
         public void DecimalOverflowsAtDecimalMaxValue()
         {
-            decimal[] source = { decimal.MaxValue, 1m };
+            decimal[] source = { decimal.MaxValue, decimal.MaxValue,
+                                 -decimal.MaxValue, -decimal.MaxValue };
             Assert.Throws<OverflowException>(() => source.Average());
         }
 
