@@ -193,28 +193,28 @@ namespace Edulinq.Tests
         public void EmptyCharSequenceGenericNoSelector()
         {
             IEnumerable<char> source = "";
-            Assert.Throws<InvalidOperationException>(() => source.Max());
+            Assert.Throws<InvalidOperationException>(() => source.Min());
         }
 
         [Test]
         public void EmptyCharSequenceGenericWithSelector()
         {
             string[] source = { };
-            Assert.Throws<InvalidOperationException>(() => source.Max(x => x[0]));
+            Assert.Throws<InvalidOperationException>(() => source.Min(x => x[0]));
         }
 
         [Test]
         public void EmptyStringSequenceGenericNoSelector()
         {
             string[] source = { };
-            Assert.IsNull(source.Max());
+            Assert.IsNull(source.Min());
         }
 
         [Test]
         public void EmptyStringSequenceGenericWithSelector()
         {
             string[] source = { };
-            Assert.IsNull(source.Max());
+            Assert.IsNull(source.Min());
         }
 
         [Test]
