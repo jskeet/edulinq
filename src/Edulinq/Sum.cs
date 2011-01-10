@@ -219,12 +219,12 @@ namespace Edulinq
             {
                 throw new ArgumentNullException("selector");
             }
-            float sum = 0;
+            double sum = 0;
             foreach (T item in source)
             {
                 sum += selector(item);
             }
-            return sum;
+            return (float) sum;
         }
 
         public static float? Sum<T>(
@@ -239,12 +239,12 @@ namespace Edulinq
             {
                 throw new ArgumentNullException("selector");
             }
-            float sum = 0;
+            double sum = 0;
             foreach (T item in source)
             {
                 sum += selector(item).GetValueOrDefault();
             }
-            return sum;
+            return (float) sum;
         }
 
         #endregion Single

@@ -187,6 +187,15 @@ namespace Edulinq.Tests
             string[] source = { "x", "y" };
             Assert.Throws<OverflowException>(() => source.Sum(x => (int?) int.MaxValue));
         }
+
+        [Test]
+        public void OverflowOfComputableSumInt32()
+        {
+            int[] source = { int.MaxValue, 1, -1, -int.MaxValue };
+            // In a world where we summed using a long accumulator, the
+            // result would be 0.
+            Assert.Throws<OverflowException>(() => source.Sum());
+        }
         #endregion
 
         #region Int64
@@ -715,6 +724,27 @@ namespace Edulinq.Tests
         {
             string[] source = { "x", "y" };
             Assert.IsTrue(float.IsPositiveInfinity(source.Sum(x => (float?)float.MaxValue).Value));
+        }
+
+        [Test]
+        public void NonOverflowOfComputableSumSingle()
+        {
+            float[] source = { float.MaxValue, float.MaxValue,
+                              -float.MaxValue, -float.MaxValue };
+            // In a world where we summed using a float accumulator, the
+            // result would be infinity.
+            Assert.AreEqual(0f, source.Sum());
+        }
+
+        [Test]
+        public void AccumulatorAccuracyForSingle()
+        {
+            // 20000000 and 20000004 are both exactly representable as
+            // float values, but 20000001 is not. Therefore if we use
+            // a float accumulator, we'll end up with 20000000. However,
+            // if we use a double accumulator, we'll get the right value.
+            float[] array = { 20000000f, 1f, 1f, 1f, 1f };
+            Assert.AreEqual(20000004f, array.Sum());
         }
         #endregion
 
