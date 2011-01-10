@@ -53,6 +53,7 @@
     <Compile Include="AggregateTest.cs" />
     <Compile Include="AllTest.cs" />
     <Compile Include="AnyTest.cs" />
+    <Compile Include="AverageTest.cs" />
     <Compile Include="ConcatTest.cs" />
     <Compile Include="MinTest.cs" />
     <Compile Include="MaxTest.cs" />
