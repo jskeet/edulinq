@@ -23,7 +23,7 @@ namespace Edulinq.TestSupport
     /// Collection class backed by a List[T] which delegates everything to the list
     /// *except* iteration - GetEnumerator() throwsNotSupportedException.
     /// </summary>
-    class NonEnumerableList<T> : IList<T>
+    public class NonEnumerableList<T> : IList<T>
     {
         private readonly List<T> backingList;
 

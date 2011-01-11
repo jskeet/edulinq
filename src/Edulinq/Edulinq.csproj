@@ -46,6 +46,8 @@
     <Compile Include="Average.cs" />
     <Compile Include="CompositeKey.cs" />
     <Compile Include="Concat.cs" />
+    <Compile Include="ElementAtOrDefault.cs" />
+    <Compile Include="ElementAt.cs" />
     <Compile Include="Min.cs" />
     <Compile Include="Max.cs" />
     <Compile Include="Reverse.cs" />

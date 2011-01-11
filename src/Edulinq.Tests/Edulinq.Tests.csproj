@@ -55,6 +55,8 @@
     <Compile Include="AnyTest.cs" />
     <Compile Include="AverageTest.cs" />
     <Compile Include="ConcatTest.cs" />
+    <Compile Include="ElementAtOrDefaultTest.cs" />
+    <Compile Include="ElementAtTest.cs" />
     <Compile Include="MinTest.cs" />
     <Compile Include="MaxTest.cs" />
     <Compile Include="ReverseTest.cs" />
@@ -80,7 +82,6 @@
     <Compile Include="LastTest.cs" />
     <Compile Include="FirstOrDefaultTest.cs" />
     <Compile Include="FirstTest.cs" />
-    <Compile Include="NonEnumerableList.cs" />
     <Compile Include="SingleOrDefaultTest.cs" />
     <Compile Include="LongCountTest.cs" />
     <Compile Include="CountTest.cs" />
