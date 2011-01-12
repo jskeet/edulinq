@@ -100,6 +100,7 @@ namespace Edulinq.Tests
         }
 
         [Test]
+        [Ignore("Fails in LINQ to Objects - see blog for design discussion")]
         public void SetWithDifferentComparer()
         {
             ICollection<string> sourceAsCollection = HashSetProvider.NewHashSet

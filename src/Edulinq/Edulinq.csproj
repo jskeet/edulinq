@@ -44,6 +44,7 @@
     <Compile Include="All.cs" />
     <Compile Include="Any.cs" />
     <Compile Include="Average.cs" />
+    <Compile Include="Cast.cs" />
     <Compile Include="CompositeKey.cs" />
     <Compile Include="Concat.cs" />
     <Compile Include="Contains.cs" />
@@ -51,6 +52,7 @@
     <Compile Include="ElementAt.cs" />
     <Compile Include="Min.cs" />
     <Compile Include="Max.cs" />
+    <Compile Include="OfType.cs" />
     <Compile Include="Reverse.cs" />
     <Compile Include="Sum.cs" />
     <Compile Include="ThenByDescending.cs" />
