@@ -55,6 +55,7 @@
     <Compile Include="AnyTest.cs" />
     <Compile Include="AverageTest.cs" />
     <Compile Include="ConcatTest.cs" />
+    <Compile Include="ContainsTest.cs" />
     <Compile Include="ElementAtOrDefaultTest.cs" />
     <Compile Include="ElementAtTest.cs" />
     <Compile Include="MinTest.cs" />
