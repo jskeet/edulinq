@@ -16,6 +16,7 @@
 using Edulinq.TestSupport;
 using System.Linq;
 using NUnit.Framework;
+using System.Collections;
 
 namespace Edulinq.Tests
 {
@@ -105,5 +106,26 @@ namespace Edulinq.Tests
             list[2].AssertSequenceEqual('f');
             Assert.AreEqual(4, list[2].Key);
         }
+
+        [Test]
+        public void CastWithFrom()
+        {
+            IEnumerable strings = new[] { "first", "second", "third" };
+            var query = from string x in strings
+                        select x;
+            query.AssertSequenceEqual("first", "second", "third");
+        }
+
+        [Test]
+        public void CastWithJoin()
+        {
+            var ints = Enumerable.Range(0, 10);
+            IEnumerable strings = new[] { "first", "second", "third" };
+            var query = from x in ints
+                        join string y in strings on x equals y.Length
+                        select x + ":" + y;
+            query.AssertSequenceEqual("5:first", "5:third", "6:second");
+        }
+
     }
 }
