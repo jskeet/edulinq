@@ -27,10 +27,13 @@ namespace Edulinq
             {
                 throw new ArgumentNullException("source");
             }
-            IEnumerable<TResult> existingSequence = source as IEnumerable<TResult>;
-            if (existingSequence != null && default(TResult) != null)
+            if (default(TResult) != null)
             {
-                return existingSequence;
+                IEnumerable<TResult> existingSequence = source as IEnumerable<TResult>;
+                if (existingSequence != null)
+                {
+                    return existingSequence;
+                }
             }
             return OfTypeImpl<TResult>(source);
         }
