@@ -63,6 +63,7 @@
     <Compile Include="MinTest.cs" />
     <Compile Include="MaxTest.cs" />
     <Compile Include="ReverseTest.cs" />
+    <Compile Include="SequenceEqualTest.cs" />
     <Compile Include="SumTest.cs" />
     <Compile Include="ThenByDescendingTest.cs" />
     <Compile Include="ThenByTest.cs" />
