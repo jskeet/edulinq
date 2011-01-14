@@ -99,6 +99,7 @@
     <Compile Include="ToLookup.cs" />
     <Compile Include="Union.cs" />
     <Compile Include="Where.cs" />
+    <Compile Include="Zip.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
