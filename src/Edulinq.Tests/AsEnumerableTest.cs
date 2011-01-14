@@ -52,10 +52,12 @@ namespace Edulinq.Tests
             var list = new[] { 
                 new { FirstName = "Jon", Surname = "Skeet" },
                 new { FirstName = "Holly", Surname = "Skeet" }
-            };
+            }.ToList();
 
             // We can't cast to IEnumerable<T> as we can't express T.
             var sequence = list.AsEnumerable();
+            // This will now use Enumerable.Contains instead of List.Contains
+            Assert.IsFalse(sequence.Contains(new { FirstName = "Tom", Surname = "Skeet" }));
         }
     }
 }
