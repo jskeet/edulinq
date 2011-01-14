@@ -148,6 +148,7 @@ namespace Edulinq.Tests
         }
 
         [Test]
+        [Ignore("LINQ to Objects doesn't optimize by count")]
         public void CountOptimization()
         {
             // The counts are different, so we don't need to iterate
