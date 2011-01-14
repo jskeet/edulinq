@@ -105,6 +105,7 @@
     <Compile Include="ToLookupTest.cs" />
     <Compile Include="UnionTest.cs" />
     <Compile Include="WhereTest.cs" />
+    <Compile Include="ZipTest.cs" />
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)' == 'Edulinq implementation'">
     <ProjectReference Include="..\Edulinq\Edulinq.csproj">
