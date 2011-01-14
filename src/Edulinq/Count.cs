@@ -28,24 +28,15 @@ namespace Edulinq
                 throw new ArgumentNullException("source");
             }
 
-            // Optimization for ICollection<T>
-            ICollection<TSource> genericCollection = source as ICollection<TSource>;
-            if (genericCollection != null)
+            int count;
+            if (TryFastCount(source, out count))
             {
-                return genericCollection.Count;
-            }
-
-            // Optimization for ICollection
-            ICollection nonGenericCollection = source as ICollection;
-            if (nonGenericCollection != null)
-            {
-                return nonGenericCollection.Count;
+                return count;
             }
 
             // Do it the slow way - and make sure we overflow appropriately
             checked
             {
-                int count = 0;
                 using (var iterator = source.GetEnumerator())
                 {
                     while (iterator.MoveNext())
@@ -82,6 +73,31 @@ namespace Edulinq
                 }
                 return count;
             }
+        }
+
+        private static bool TryFastCount<TSource>(
+            IEnumerable<TSource> source,
+            out int count)
+        {
+            // Optimization for ICollection<T>
+            ICollection<TSource> genericCollection = source as ICollection<TSource>;
+            if (genericCollection != null)
+            {
+                count = genericCollection.Count;
+                return true;
+            }
+
+            // Optimization for ICollection
+            ICollection nonGenericCollection = source as ICollection;
+            if (nonGenericCollection != null)
+            {
+                count = nonGenericCollection.Count;
+                return true;
+            }
+
+            // Can't retrieve the count quickly. Oh well.
+            count = 0;
+            return false;
         }
     }
 }
