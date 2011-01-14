@@ -51,6 +51,14 @@ namespace Edulinq.Tests
         }
 
         [Test]
+        public void ExecutionIsDeferred()
+        {
+            var first = new ThrowingEnumerable();
+            var second = new ThrowingEnumerable();
+            first.Zip(second, (x, y) => x + y);
+        }
+
+        [Test]
         public void ShortFirst()
         {
             string[] first = { "a", "b", "c" };
