@@ -45,7 +45,19 @@ namespace Edulinq.Tests
         [Test]
         public void ZeroCount()
         {
-            Enumerable.Range(0, 5).Skip(-5).AssertSequenceEqual(0, 1, 2, 3, 4);
+            Enumerable.Range(0, 5).Skip(0).AssertSequenceEqual(0, 1, 2, 3, 4);
+        }
+
+        [Test]
+        public void NegativeCountWithArray()
+        {
+            new int[] { 0, 1, 2, 3, 4 }.Skip(-5).AssertSequenceEqual(0, 1, 2, 3, 4);
+        }
+
+        [Test]
+        public void ZeroCountWithArray()
+        {
+            new int[] { 0, 1, 2, 3, 4 }.Skip(0).AssertSequenceEqual(0, 1, 2, 3, 4);
         }
 
         [Test]
