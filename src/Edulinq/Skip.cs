@@ -13,6 +13,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 #endregion
+#define SEPARATE_SKIPTAKE_IMPLEMENTATION
+#define OPTIMIZE_SKIP_ON_LISTS
+#define OPTIMIZE_SKIP_FOR_NO_OP
 using System;
 using System.Collections.Generic;
 
@@ -29,6 +32,12 @@ namespace Edulinq
             {
                 throw new ArgumentNullException("source");
             }
+#if OPTIMIZE_SKIP_FOR_NO_OP
+            if (count <= 0)
+            {
+                return source;
+            }
+#endif
             return SkipImpl(source, count);
         }
 
@@ -36,6 +45,19 @@ namespace Edulinq
             this IEnumerable<TSource> source,
             int count)
         {
+#if OPTIMIZE_SKIP_ON_LISTS
+            var list = source as IList<TSource>;
+            if (list != null)
+            {
+                count = Math.Max(count, 0);
+                // Note that "count" is the count of items to skip
+                for (int index = count; index < list.Count; index++)
+                {
+                    yield return list[index];
+                }
+                yield break;
+            }
+#endif
             using (IEnumerator<TSource> iterator = source.GetEnumerator())
             {
                 for (int i = 0; i < count; i++)
