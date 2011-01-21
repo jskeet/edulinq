@@ -157,6 +157,7 @@ namespace Edulinq.Tests
             Assert.IsFalse(first.SequenceEqual(second));
         }
 
+#if !LINQBRIDGE
         [Test]
         public void DefaultComparerOfTypeIsUsedRegardlessOfCollection()
         {
@@ -166,6 +167,7 @@ namespace Edulinq.Tests
             Assert.AreEqual(1, set.Count);
             Assert.IsFalse(set.SequenceEqual(new[] { "ABC" }));
         }
+#endif
 
         [Test]
         public void ReturnAtFirstDifference()

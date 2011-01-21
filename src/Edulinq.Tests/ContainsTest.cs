@@ -99,6 +99,7 @@ namespace Edulinq.Tests
             Assert.IsTrue(query.Contains(2));
         }
 
+#if !LINQBRIDGE
         [Test]
         [Ignore("Fails in LINQ to Objects - see blog for design discussion")]
         public void SetWithDifferentComparer()
@@ -111,5 +112,6 @@ namespace Edulinq.Tests
             Assert.IsFalse(sourceAsSequence.Contains("BAR", null));
             Assert.IsFalse(sourceAsSequence.Contains("BAR", StringComparer.Ordinal));
         }
+#endif
     }
 }

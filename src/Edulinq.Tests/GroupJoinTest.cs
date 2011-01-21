@@ -42,7 +42,7 @@ namespace Edulinq.Tests
             var query = outer.GroupJoin(inner,
                                    outerElement => outerElement[0],
                                    innerElement => innerElement[1],
-                                   (outerElement, innerElements) => outerElement + ":" + string.Join(";", innerElements));
+                                   (outerElement, innerElements) => outerElement + ":" + StringEx.Join(";", innerElements));
 
             query.AssertSequenceEqual("first:offer", "second:essence;psalm", "third:");
         }
@@ -58,7 +58,7 @@ namespace Edulinq.Tests
             var query = outer.GroupJoin(inner,
                                    outerElement => outerElement.Substring(0, 3),
                                    innerElement => innerElement.Substring(3),
-                                   (outerElement, innerElements) => outerElement + ":" + string.Join(";", innerElements),
+                                   (outerElement, innerElements) => outerElement + ":" + StringEx.Join(";", innerElements),
                                    StringComparer.OrdinalIgnoreCase);
             // ABCxxx matches 000abc and 333AbC
             // abcyyy matches 000abc and 333AbC
@@ -76,7 +76,7 @@ namespace Edulinq.Tests
             var query = outer.GroupJoin(inner,
                                    outerElement => outerElement,
                                    innerElement => innerElement.Length,
-                                   (outerElement, innerElements) => outerElement + ":" + string.Join(";", innerElements));
+                                   (outerElement, innerElements) => outerElement + ":" + StringEx.Join(";", innerElements));
             query.AssertSequenceEqual("5:tiger", "3:bee;cat;dog", "7:giraffe", "4:");
         }
     }

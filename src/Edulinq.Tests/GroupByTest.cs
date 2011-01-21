@@ -94,7 +94,7 @@ namespace Edulinq.Tests
         {
             string[] source = { "abc", "hello", "def", "there", "four" };
             var groups = source.GroupBy(x => x.Length,
-                                        (key, values) => key + ":" + string.Join(";", values));
+                                        (key, values) => key + ":" + StringEx.Join(";", values));
 
             groups.AssertSequenceEqual("3:abc;def", "5:hello;there", "4:four");
         }
@@ -107,7 +107,7 @@ namespace Edulinq.Tests
             // source string contributing to the group
             var groups = source.GroupBy(x => x.Length,
                                         x => x[0],
-                                        (key, values) => key + ":" + string.Join(";", values));
+                                        (key, values) => key + ":" + StringEx.Join(";", values));
 
             groups.AssertSequenceEqual("3:a;d", "5:h;t", "4:f");
         }
