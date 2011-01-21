@@ -31,10 +31,22 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Edulinq implementation|AnyCPU'">
     <AddAdditionalExplicitAssemblyReferences>false</AddAdditionalExplicitAssemblyReferences>
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\Normal LINQ\</OutputPath>
+    <OutputPath>bin\Edulinq implementation\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'LinqBridge implementation|AnyCPU'">
+    <AddAdditionalExplicitAssemblyReferences>false</AddAdditionalExplicitAssemblyReferences>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\LinqBridge implementation\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;LINQBRIDGE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
@@ -45,6 +57,12 @@
       <HintPath>.\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)' == 'LinqBridge implementation'">
+    <Reference Include="LinqBridge">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\LinqBridge.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)' == 'Normal LINQ'">
     <Reference Include="System.Core" />

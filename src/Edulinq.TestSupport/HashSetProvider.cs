@@ -14,7 +14,11 @@ namespace Edulinq.TestSupport
         /// </summary>
         public static ICollection<T> NewHashSet<T>(IEqualityComparer<T> comparer, params T[] items)
         {
+#if LINQBRIDGE
+            return null; // LinqBridge doesn't provide HashSet<T>; tests are conditionalized too
+#else
             return new HashSet<T>(items, comparer);
+#endif
         }
     }
 }

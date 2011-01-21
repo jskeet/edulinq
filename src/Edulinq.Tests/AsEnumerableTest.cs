@@ -13,15 +13,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 #endregion
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Edulinq.TestSupport;
 using NUnit.Framework;
 
 namespace Edulinq.Tests
 {
+#if !LINQBRIDGE // In the build I've got, AsEnumerable isn't an extension method
     [TestFixture]
     public class AsEnumerableTest
     {
@@ -60,4 +59,5 @@ namespace Edulinq.Tests
             Assert.IsFalse(sequence.Contains(new { FirstName = "Tom", Surname = "Skeet" }));
         }
     }
+#endif
 }

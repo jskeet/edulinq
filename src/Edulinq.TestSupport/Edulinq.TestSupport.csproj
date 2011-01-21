@@ -32,11 +32,33 @@
     <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
     <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'LinqBridge implementation|AnyCPU'">
+    <AddAdditionalExplicitAssemblyReferences>false</AddAdditionalExplicitAssemblyReferences>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\LinqBridge implementation\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;LINQBRIDGE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="nunit.framework">
       <HintPath>..\Edulinq.Tests\nunit.framework.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)' == 'LinqBridge implementation'">
+    <Reference Include="LinqBridge">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\LinqBridge.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)' != 'LinqBridge implementation'">
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
@@ -50,6 +72,7 @@
     <Compile Include="NonEnumerableList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SemiGenericCollection.cs" />
+    <Compile Include="StringEx.cs" />
     <Compile Include="TestExtensions.cs" />
     <Compile Include="ThrowingEnumerable.cs" />
   </ItemGroup>

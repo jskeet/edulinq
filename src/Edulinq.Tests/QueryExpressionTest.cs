@@ -57,7 +57,7 @@ namespace Edulinq.Tests
 
             var query = from x in outer
                         join y in inner on x equals y.Length into matches
-                        select x + ":" + string.Join(";", matches);
+                        select x + ":" + StringEx.Join(";", matches);
             query.AssertSequenceEqual("5:tiger", "3:bee;cat;dog", "7:giraffe");
         }
 
@@ -69,7 +69,7 @@ namespace Edulinq.Tests
 
             var query = from x in outer
                         join y in inner on x equals y.Length into matches
-                        select x + ":" + string.Join(";", matches.DefaultIfEmpty("null"));
+                        select x + ":" + StringEx.Join(";", matches.DefaultIfEmpty("null"));
             query.AssertSequenceEqual("5:tiger", "3:bee;cat;dog", "4:null", "7:giraffe");
         }
 
