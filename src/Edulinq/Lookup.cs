@@ -74,6 +74,10 @@ namespace Edulinq
         public IEnumerator<IGrouping<TKey, TElement>> GetEnumerator()
         {
             return keys.Select(key => new Grouping<TKey, TElement>(key, map[key]))
+#if DOTNET35_ONLY
+                       // Cope with lack of generic variance if necessary
+                       .Cast<IGrouping<TKey, TElement>>()
+#endif
                        .GetEnumerator();
         }
         

@@ -13,16 +13,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 #endregion
-using System.Collections.Generic;
+using System;
 
-namespace Edulinq
+namespace Edulinq.Tests
 {
-#if DOTNET35_ONLY
-    public interface IGrouping<TKey, TElement> : IEnumerable<TElement>
-#else
-    public interface IGrouping<out TKey, out TElement> : IEnumerable<TElement>
-#endif
+    // This is a horrible hack to let us force all tests to be run by recompiling with
+    // the ALL_TESTS symbol defined. Basically it's a workaround for ReSharper not supporting
+    // categories.
+#if ALL_TESTS
+    [AttributeUsage(AttributeTargets.Method)]
+    public class IgnoreAttribute : Attribute
     {
-        TKey Key { get; }
+        public IgnoreAttribute(string reason)
+        {
+        }
     }
+#endif
 }
