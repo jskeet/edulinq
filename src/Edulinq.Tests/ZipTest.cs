@@ -20,7 +20,7 @@ using NUnit.Framework;
 
 namespace Edulinq.Tests
 {
-#if !LINQBRIDGE
+#if !LINQBRIDGE && !DOTNET35_ONLY
     [TestFixture]
     public class ZipTest
     {
