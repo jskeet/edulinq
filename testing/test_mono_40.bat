@@ -4,7 +4,7 @@ mkdir mono40
 pushd mono40
 copy ..\..\NUnit\*.* . > nul
 echo Building...
-call dmcs -target:library -out:Edulinq.dll ../Edulinq/*.cs
+call dmcs -target:library -out:Edulinq.dll ../../src/Edulinq/*.cs
 call dmcs -target:library -out:Edulinq.TestSupport.dll -r:./nunit.framework.dll ../../src/Edulinq.TestSupport/*.cs
 call dmcs -target:library -out:Edulinq.BuiltIn_Tests.dll -d:ALL_TESTS -r:./nunit.framework.dll,Edulinq.TestSupport.dll ../../src/Edulinq.Tests/*.cs
 call dmcs -target:library -out:Edulinq.Edulinq_Tests.dll -d:ALL_TESTS -r:./nunit.framework.dll,Edulinq.TestSupport.dll,Edulinq.dll ../../src/Edulinq.Tests/*.cs

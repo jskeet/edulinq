@@ -5,7 +5,7 @@ pushd mono35
 copy ..\..\NUnit\*.* . > nul
 copy ..\..\src\LinqBridge.dll . > nul
 echo Building...
-call gmcs -target:library -out:Edulinq.dll -d:DOTNET35_ONLY ../Edulinq/*.cs
+call gmcs -target:library -out:Edulinq.dll -d:DOTNET35_ONLY ../../src/Edulinq/*.cs
 call gmcs -target:library -out:Edulinq.TestSupport.dll -d:DOTNET35_ONLY -r:./nunit.framework.dll ../../src/Edulinq.TestSupport/*.cs
 call gmcs -target:library -out:Edulinq.BuiltIn_Tests.dll -d:ALL_TESTS -d:DOTNET35_ONLY -r:./nunit.framework.dll,Edulinq.TestSupport.dll ../../src/Edulinq.Tests/*.cs
 call gmcs -target:library -out:Edulinq.Edulinq_Tests.dll -d:ALL_TESTS -d:DOTNET35_ONLY -r:./nunit.framework.dll,Edulinq.TestSupport.dll,Edulinq.dll ../../src/Edulinq.Tests/*.cs
