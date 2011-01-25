@@ -15,33 +15,102 @@
 #endregion
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 namespace Edulinq
 {
     /// <summary>
-    /// Lightweight wrapper around an existing key/sequence pair, to implement IGrouping.
+    /// Lightweight wrapper around a list. This is mutable within the assembly, but immutable externally;
+    /// we use it to build up a lookup, which doesn't return any groupings until the whole lookup has
+    /// been constructed.
     /// </summary>
-    internal sealed class Grouping<TKey, TElement> : IGrouping<TKey, TElement>
+    internal sealed class Grouping<TKey, TElement> : IGrouping<TKey, TElement>, IList<TElement>
     {
         private readonly TKey key;
-        private readonly IEnumerable<TElement> elements;
+        private readonly List<TElement> list;
 
-        internal Grouping(TKey key, IEnumerable<TElement> elements)
+        internal Grouping(TKey key)
         {
             this.key = key;
-            this.elements = elements;
+            this.list = new List<TElement>();
         }
 
         public TKey Key { get { return key; } }
 
         public IEnumerator<TElement> GetEnumerator()
         {
-            return elements.GetEnumerator();
+            return list.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+        /// <summary>
+        /// Internal-only method to add items; do not call after a reference to this grouping
+        /// has been returned publicly.
+        /// </summary>
+        /// <param name="item"></param>
+        internal void Add(TElement item)
+        {
+            list.Add(item);
+        }
+
+        public int IndexOf(TElement item)
+        {
+            return list.IndexOf(item);
+        }
+
+        void IList<TElement>.Insert(int index, TElement item)
+        {
+            throw new NotSupportedException();
+        }
+
+        void IList<TElement>.RemoveAt(int index)
+        {
+            throw new NotSupportedException();
+        }
+
+        public TElement this[int index]
+        {
+            get { return list[index]; }
+            set { throw new NotSupportedException(); }
+        }
+
+        void ICollection<TElement>.Add(TElement item)
+        {
+            throw new NotSupportedException();
+        }
+
+        void ICollection<TElement>.Clear()
+        {
+            throw new NotSupportedException();
+        }
+
+        public bool Contains(TElement item)
+        {
+            return list.Contains(item);
+        }
+
+        public void CopyTo(TElement[] array, int arrayIndex)
+        {
+            list.CopyTo(array, arrayIndex);
+        }
+
+        public int Count
+        {
+            get { return list.Count; }
+        }
+
+        public bool IsReadOnly
+        {
+            get { return true; }
+        }
+
+        bool ICollection<TElement>.Remove(TElement item)
+        {
+            throw new NotSupportedException();
         }
     }
 }
