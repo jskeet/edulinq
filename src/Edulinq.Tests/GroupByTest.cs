@@ -144,5 +144,17 @@ namespace Edulinq.Tests
                 iterator.Current.AssertSequenceEqual("def", "ghi");
             }
         }
+
+        [Test]
+        public void NullKeys()
+        {
+            string[] source = { "first", "null", "nothing", "second" };
+            // This time "values" will be an IEnumerable<char>, the first character of each
+            // source string contributing to the group
+            var groups = source.GroupBy(x => x.StartsWith("n") ? null : x,
+                                        (key, values) => key + ":" + StringEx.Join(";", values));
+
+            groups.AssertSequenceEqual("first:first", ":null;nothing", "second:second");
+        }
     }
 }

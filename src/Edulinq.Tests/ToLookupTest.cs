@@ -114,5 +114,23 @@ namespace Edulinq.Tests
 
             lookup.Select(x => x.Key).AssertSequenceEqual("Skeet", "Cortez", "Bartlet");
         }
+
+        [Test]
+        public void FindByNullKeyNonePresent()
+        {
+            string[] source = { "first", "second" };
+            var lookup = source.ToLookup(x => x);
+            lookup[null].AssertSequenceEqual();
+        }
+
+        [Test]
+        public void FindByNullKeyWhenPresent()
+        {
+            string[] source = { "first", "null", "nothing", "second" };
+            var lookup = source.ToLookup(x => x.StartsWith("n") ? null : x);
+            lookup[null].AssertSequenceEqual("null", "nothing");
+            lookup.Select(x => x.Key).AssertSequenceEqual("first", null, "second");
+            Assert.AreEqual(3, lookup.Count);
+        }
     }
 }

@@ -24,12 +24,12 @@ namespace Edulinq
     /// </summary>
     internal sealed class Lookup<TKey, TElement> : ILookup<TKey, TElement>
     {
-        private readonly Dictionary<TKey, List<TElement>> map;
+        private readonly NullKeyFriendlyDictionary<TKey, List<TElement>> map;
         private readonly List<TKey> keys;
 
         internal Lookup(IEqualityComparer<TKey> comparer)
         {
-            map = new Dictionary<TKey, List<TElement>>(comparer);
+            map = new NullKeyFriendlyDictionary<TKey, List<TElement>>(comparer);
             keys = new List<TKey>();
         }
 
