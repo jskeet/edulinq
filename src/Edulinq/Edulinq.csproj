@@ -64,6 +64,7 @@
     <Compile Include="ElementAt.cs" />
     <Compile Include="Min.cs" />
     <Compile Include="Max.cs" />
+    <Compile Include="NullKeyFriendlyDictionary.cs" />
     <Compile Include="OfType.cs" />
     <Compile Include="Reverse.cs" />
     <Compile Include="SequenceEqual.cs" />

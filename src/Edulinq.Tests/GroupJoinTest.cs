@@ -79,5 +79,17 @@ namespace Edulinq.Tests
                                    (outerElement, innerElements) => outerElement + ":" + StringEx.Join(";", innerElements));
             query.AssertSequenceEqual("5:tiger", "3:bee;cat;dog", "7:giraffe", "4:");
         }
+
+        [Test]
+        public void NullKeys()
+        {
+            string[] outer = { "first", null, "second" };
+            string[] inner = { "first", "null", "nothing" };
+            var query = outer.GroupJoin(inner,
+                                   outerElement => outerElement,
+                                   innerElement => innerElement.StartsWith("n") ? null : innerElement,
+                                   (outerElement, innerElements) => outerElement + ":" + StringEx.Join(";", innerElements));
+            query.AssertSequenceEqual("first:first", ":null;nothing", "second:");
+        }
     }
 }
