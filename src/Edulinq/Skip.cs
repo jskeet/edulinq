@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 #endregion
-#define SEPARATE_SKIPTAKE_IMPLEMENTATION
+#define SEPARATE_SKIP_IMPLEMENTATION
 #define OPTIMIZE_SKIP_FOR_NO_OP
 using System;
 using System.Collections.Generic;
@@ -22,7 +22,7 @@ namespace Edulinq
 {
     public static partial class Enumerable
     {
-#if SEPARATE_SKIPTAKE_IMPLEMENTATION
+#if SEPARATE_SKIP_IMPLEMENTATION
         public static IEnumerable<TSource> Skip<TSource>(
             this IEnumerable<TSource> source,
             int count)

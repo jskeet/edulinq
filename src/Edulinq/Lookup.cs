@@ -24,25 +24,25 @@ namespace Edulinq
     /// </summary>
     internal sealed class Lookup<TKey, TElement> : ILookup<TKey, TElement>
     {
-        private readonly NullKeyFriendlyDictionary<TKey, List<TElement>> map;
+        private readonly NullKeyFriendlyDictionary<TKey, Grouping<TKey, TElement>> map;
         private readonly List<TKey> keys;
 
         internal Lookup(IEqualityComparer<TKey> comparer)
         {
-            map = new NullKeyFriendlyDictionary<TKey, List<TElement>>(comparer);
+            map = new NullKeyFriendlyDictionary<TKey, Grouping<TKey, TElement>>(comparer);
             keys = new List<TKey>();
         }
 
         internal void Add(TKey key, TElement element)
         {
-            List<TElement> list;
-            if (!map.TryGetValue(key, out list))
+            Grouping<TKey, TElement> group;
+            if (!map.TryGetValue(key, out group))
             {
-                list = new List<TElement>();
-                map[key] = list;
+                group = new Grouping<TKey, TElement>(key);
+                map[key] = group;
                 keys.Add(key);
             }
-            list.Add(element);
+            group.Add(element);
         }
 
         public int Count
@@ -54,15 +54,12 @@ namespace Edulinq
         {
             get
             {
-                List<TElement> list;
-                if (!map.TryGetValue(key, out list))
+                Grouping<TKey, TElement> group;
+                if (!map.TryGetValue(key, out group))
                 {
                     return Enumerable.Empty<TElement>();
                 }
-                // Other options:
-                // - Return a ReadOnlyCollection (which will allow fast counting, for example)
-                // - Return a new Grouping(key, list)
-                return list.Select(x => x);
+                return group;
             }
         }
 
@@ -73,11 +70,7 @@ namespace Edulinq
 
         public IEnumerator<IGrouping<TKey, TElement>> GetEnumerator()
         {
-            return keys.Select(key => new Grouping<TKey, TElement>(key, map[key]))
-#if DOTNET35_ONLY
-                       // Cope with lack of generic variance if necessary
-                       .Cast<IGrouping<TKey, TElement>>()
-#endif
+            return keys.Select<TKey, IGrouping<TKey, TElement>>(key => map[key])
                        .GetEnumerator();
         }
         
