@@ -38,6 +38,8 @@ namespace Edulinq
         {
             if (key == null)
             {
+                // This will be default(TValue) if haveNullKey is false,
+                // which is what we want.
                 value = valueForNullKey;
                 return haveNullKey;
             }
