@@ -1,0 +1,80 @@
+table.code, table.spec, table.results, table.compile, table.summary
+{
+    margin-left: 4em;
+    border: 1px solid #000000;
+    padding: 4px;
+}
+
+table.code
+{
+    background-color: #e5e5e5;
+}
+
+table.spec
+{
+    background-color: #aaddff;
+}
+
+table.results
+{
+    background-color: #aaeeaa;
+}
+
+table.compile
+{
+    background-color: #ffaaaa;
+}
+
+table.summary
+{
+    background-color: #ffffff;
+}
+
+div.code, div.output
+{
+  border-right: white 2px ridge; 
+  padding-right: 10px; 
+  border-top: white 2px ridge; 
+  padding-left: 10px; 
+  font-size: 10pt; 
+  padding-bottom: 10px; 
+  margin: 10px; 
+  border-left: white 2px ridge; 
+  padding-top: 10px; 
+  border-bottom: white 2px ridge; 
+  font-family: courier new; 
+  background-color: #e5e5e5;
+}
+
+/* For code snippets */
+
+span.Keyword,span.Linq,span.ReferenceType,span.ValueType,span.Modifier,span.Statement,
+span.MethodParameter,span.Namespace,span.DataType,span.Function,span.Method,
+span.Object,span.Operator,span.Property,span.SysTable,span.SysSproc,
+span.GlobalVariable,span.ReservedKeyword,span.SystemFunction,span.Type,
+span.PreProcessorDirective, span.Element
+{
+    color: #0000cc
+}
+
+span.BlockComment,span.XmlComment,span.InlineComment,span.JavaDoc
+{
+    color: green
+}
+
+span.String
+{
+    color: black
+}
+
+span.Attention
+{
+    font-weight: bold;
+    color: red
+}
+
+span.Entity
+{
+    color: red
+}
+

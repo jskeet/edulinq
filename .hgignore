@@ -1,0 +1,8 @@
+glob:*/bin
+glob:*/obj
+glob:*.suo
+glob:*.user
+glob:_ReSharper*
+glob:testing/dotnet/*
+glob:testing/mono35/*
+glob:testing/mono40/*

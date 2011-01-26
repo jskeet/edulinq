@@ -1,0 +1,44 @@
+<html>
+<head>
+<title>Reimplementing LINQ to Objects: Part 1 - Introduction</title>
+<link rel="stylesheet" href="codestyles.css" />
+</head>
+<body>
+<h1>Part 1 - Introduction</h1>
+
+<p>About a year and a half ago, I gave a talk at a <a href="http://developerdeveloperdeveloper.com">DDD</a> day in Reading, attempting to reimplement as much of LINQ to Objects as possible in an hour. Based on the feedback from the session, I went far too fast... and I was still a long way from finishing. However, I still think it's an interesting exercise, so I thought I'd do it again in a more leisurely way, blogging as I go. Everything will be under the <a href="http://msmvps.com/blogs/jon_skeet/archive/tags/Edulinq/default.aspx">&quot;Edulinq&quot; tag</a>, so that's the best way to get all the parts in order, without any of my other posts.</p>
+
+<h3>General approach</h3>
+
+<p>The plan is to reimplement the whole of LINQ to Objects, explaining each method (or group of methods) in a blog post. I'm going to try to make the code itself production quality, but I'm not going to include any XML documentation - if I'm already writing up how things work, I don't want to do everything twice. I'll include optimizations where appropriate, hopefully <a href="http://msmvps.com/blogs/jon_skeet/archive/2010/02/10/optimisations-in-linq-to-objects.aspx">doing better than LINQ to Objects itself</a>.</p>
+
+<p>The approach is going to be fairly simple: for each LINQ method, I'll write some unit tests (most of which I won't show in the blog posts) and make sure they run against the normal .NET implementation. I'll then comment out the using directive for System.Linq, and introduce one for JonSkeet.Linq instead. The tests will fail, I'll implement the methods, and gradually they'll go green again. It's not quite the normal TDD pattern, but it works pretty well.</p>
+
+<p>I will write up a blog entry for each LINQ operator, probably including all of the production code but only &quot;interesting&quot; tests. I'll highlight important patterns as they come up - that's half the point of the exercise, of course.</p>
+
+<p>At the end of each post, I'll include a link to download the &quot;code so far&quot;. For the sake of anyone looking at these posts in the future, I'm going to keep the downloads numbered separately, rather than updating a single download over time. I'm hoping that the code will simply grow, but I dare say there'll be some modifications along the way too.</p>
+
+<p>The aim is <em>not</em> to end up with <a href="http://linqbridge.googlecode.com/">LINQBridge</a>: I'm going to be targeting .NET 3.5 (mostly so I can use extension methods without creating my own attribute) and I'm certainly not going to start worrying about installers and the like. The purpose of all of this is purely educational: if you follow along with these blog posts, with any luck you'll have a deeper understanding of LINQ in general and LINQ to Objects in particular. For example, topics like deferred execution are often misunderstood: looking at the implementation can clarify things pretty well.</p>
+
+<h3>Testing</h3>
+
+<p>The unit tests will be written using <a href="http://nunit.org">NUnit</a> (just for the sake of my own familiarity). Fairly obviously, one of the things we'll need to test quite a lot is whether two sequences are equal. We'll do this using the <a href="http://code.google.com/p/morelinq/source/browse/trunk/MoreLinq.Test/TestExtensions.cs">TestExtensions class from MoreLINQ</a> (which I've just copied into the project). The netbook on which I'll probably write most of this code only has C# Express 2010 on it, so I'm going to use the external NUnit GUI. I've set this in the project file as the program to start... which you can't do from C# Express directly, but editing the project file is easy, to include this:</p>
+
+<blockquote>
+  <p>&lt;StartAction&gt;Program&lt;/StartAction&gt; 
+    <br />&lt;StartProgram&gt;C:\Program Files\NUnit-2.5.7.10213\bin\net-2.0\nunit-x86.exe&lt;/StartProgram&gt;</p>
+</blockquote>
+
+<p>It's a bit of a grotty hack, but it works. The &quot;additional command line parameters&quot; are then set to just JonSkeet.Linq.Tests.dll - the current directory is the bin/debug directory by default, so everything's fine. Obviously if you want to run the tests yourself and you have ReSharper or something similar, you can see the results integrated into Visual Studio.</p>
+
+<p>Although I'm hoping to write reasonably production-level code, I doubt that there'll be as many unit tests as I'd <em>really </em>write against production code. I fully expect the number of lines of test code to dwarf the number of lines of production code even so. There are simply vast numbers of potential corner cases... and quite a few overloads in several cases. Remember that the goal here is to examine interesting facets of LINQ.</p>
+
+<h3>Code layout</h3>
+
+<p>Just like the real LINQ to Objects, I'll be creating an enormous static Enumerable class... but I'll do so using partial classes, with one method name (but multiple overloads) per file. So Where will be implemented in Where.cs and tested in WhereTest.cs, for example.</p>
+
+<h3>First code drop</h3>
+
+<p>The first zip file is available: <a href="http://pobox.com/~skeet/blogfiles/csharp/l2o/Linq-To-Objects-1.zip">Linq-To-Objects-1.zip</a>. It doesn't contain any production code yet - just 4 tests for Where, so I could check that NUnit was working properly for me. Next stop... implementing Where.</p>
+</body>
+</html>
