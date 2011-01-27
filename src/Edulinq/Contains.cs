@@ -13,9 +13,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 #endregion
+#define IMPLEMENT_CONTAINS_COMPATIBILITY_MODE
 using System;
 using System.Collections.Generic;
-
 namespace Edulinq
 {
     public static partial class Enumerable
