@@ -100,15 +100,18 @@ namespace Edulinq.Tests
         }
 
 #if !LINQBRIDGE
+        /// <summary>
+        /// I dislike this test. It tests for what I consider to be broken behaviour :(
+        /// See the blog post on Contains for more information.
+        /// </summary>
         [Test]
-        [Ignore("Fails in LINQ to Objects - see blog for design discussion")]
         public void SetWithDifferentComparer()
         {
             ICollection<string> sourceAsCollection = HashSetProvider.NewHashSet
                 (StringComparer.OrdinalIgnoreCase, "foo", "bar", "baz");
             IEnumerable<string> sourceAsSequence = sourceAsCollection;
             Assert.IsTrue(sourceAsCollection.Contains("BAR"));
-            Assert.IsFalse(sourceAsSequence.Contains("BAR"));
+            Assert.IsTrue(sourceAsSequence.Contains("BAR")); // This is the line that concerns me
             Assert.IsFalse(sourceAsSequence.Contains("BAR", null));
             Assert.IsFalse(sourceAsSequence.Contains("BAR", StringComparer.Ordinal));
         }
