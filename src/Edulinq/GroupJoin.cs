@@ -13,6 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 #endregion
+#define EMULATE_LINQ_TO_OBJECTS_DISCARDING_NULL_KEYS
 using System;
 using System.Collections.Generic;
 
@@ -71,7 +72,11 @@ namespace Edulinq
             Func<TOuter, IEnumerable<TInner>, TResult> resultSelector,
             IEqualityComparer<TKey> comparer)
         {
+#if EMULATE_LINQ_TO_OBJECTS_DISCARDING_NULL_KEYS
+            var lookup = inner.ToLookupNoNullKeys(innerKeySelector, comparer);
+#else
             var lookup = inner.ToLookup(innerKeySelector, comparer);
+#endif
             foreach (var outerElement in outer)
             {
                 var key = outerKeySelector(outerElement);

@@ -80,6 +80,7 @@ namespace Edulinq.Tests
             query.AssertSequenceEqual("5:tiger", "3:bee;cat;dog", "7:giraffe", "4:");
         }
 
+        // Note that LINQ to Objects ignores null keys for Join and GroupJoin
         [Test]
         public void NullKeys()
         {
@@ -89,7 +90,8 @@ namespace Edulinq.Tests
                                    outerElement => outerElement,
                                    innerElement => innerElement.StartsWith("n") ? null : innerElement,
                                    (outerElement, innerElements) => outerElement + ":" + StringEx.Join(";", innerElements));
-            query.AssertSequenceEqual("first:first", ":null;nothing", "second:");
+            // No matches for the null outer key
+            query.AssertSequenceEqual("first:first", ":", "second:");
         }
     }
 }

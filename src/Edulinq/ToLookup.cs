@@ -72,5 +72,23 @@ namespace Edulinq
             }
             return lookup;
         }
+
+        private static ILookup<TKey, TSource> ToLookupNoNullKeys<TSource, TKey>(
+            this IEnumerable<TSource> source,
+            Func<TSource, TKey> keySelector,
+            IEqualityComparer<TKey> comparer)
+        {
+            Lookup<TKey, TSource> lookup = new Lookup<TKey, TSource>(comparer ?? EqualityComparer<TKey>.Default);
+
+            foreach (TSource item in source)
+            {
+                TKey key = keySelector(item);
+                if (key != null)
+                {
+                    lookup.Add(key, item);
+                }
+            }
+            return lookup;
+        }
     }
 }
