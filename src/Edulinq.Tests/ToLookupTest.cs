@@ -131,6 +131,7 @@ namespace Edulinq.Tests
             lookup[null].AssertSequenceEqual("null", "nothing");
             lookup.Select(x => x.Key).AssertSequenceEqual("first", null, "second");
             Assert.AreEqual(3, lookup.Count);
+            lookup[null].AssertSequenceEqual("null", "nothing");
         }
     }
 }

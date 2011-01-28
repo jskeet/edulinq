@@ -13,6 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 #endregion
+#define EMULATE_LINQ_TO_OBJECTS_DISCARDING_NULL_KEYS
 
 using System;
 using System.Collections.Generic;
@@ -75,7 +76,11 @@ namespace Edulinq
             Func<TOuter, TInner, TResult> resultSelector,
             IEqualityComparer<TKey> comparer)
         {
-            var lookup = new Lazy<ILookup<TKey, TInner>>(() => inner.ToLookup(innerKeySelector, comparer));
+#if EMULATE_LINQ_TO_OBJECTS_DISCARDING_NULL_KEYS
+            var lookup = new Lazy<ILookup<TKey, TInner>>(inner.ToLookupNoNullKeys(innerKeySelector, comparer));
+#else
+            var lookup = new Lazy<ILookup<TKey, TInner>>(inner.ToLookup(innerKeySelector, comparer));
+#endif
             return outer.SelectMany(outerElement => lookup.Value[outerKeySelector(outerElement)],
                                     resultSelector);
         }
@@ -88,7 +93,12 @@ namespace Edulinq
             Func<TOuter, TInner, TResult> resultSelector,
             IEqualityComparer<TKey> comparer)
         {
+#if EMULATE_LINQ_TO_OBJECTS_DISCARDING_NULL_KEYS
+            var lookup = inner.ToLookupNoNullKeys(innerKeySelector, comparer);
+#else
             var lookup = inner.ToLookup(innerKeySelector, comparer);
+#endif
+
             // If only we had "yield foreach"... we can't just return outer.SelectMany(...), as we'd
             // get immediate execution for the lookup.
             var results = outer.SelectMany(outerElement => lookup[outerKeySelector(outerElement)],
@@ -108,7 +118,11 @@ namespace Edulinq
             Func<TOuter, TInner, TResult> resultSelector,
             IEqualityComparer<TKey> comparer)
         {
+#if EMULATE_LINQ_TO_OBJECTS_DISCARDING_NULL_KEYS
+            var lookup = inner.ToLookupNoNullKeys(innerKeySelector, comparer);
+#else
             var lookup = inner.ToLookup(innerKeySelector, comparer);
+#endif
             foreach (var outerElement in outer)
             {
                 var key = outerKeySelector(outerElement);
