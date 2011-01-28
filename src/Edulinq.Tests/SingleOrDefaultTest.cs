@@ -105,5 +105,23 @@ namespace Edulinq.Tests
             int[] source = { 1, 2, 5, 10, 2, 1 };
             Assert.Throws<InvalidOperationException>(() => source.SingleOrDefault(x => x > 3));
         }
+
+        [Test]
+        public void EarlyOutWithoutPredicate()
+        {
+            int[] source = { 1, 2, 0 };
+            var query = source.Select(x => 10 / x);
+            // We don't get as far as the third element - we die when we see the second
+            Assert.Throws<InvalidOperationException>(() => query.SingleOrDefault());
+        }
+
+        [Test]
+        public void EarlyOutWithPredicate()
+        {
+            int[] source = { 1, 2, 0 };
+            var query = source.Select(x => 10 / x);
+            // We don't get as far as the third element - we die when we see the second
+            Assert.Throws<InvalidOperationException>(() => query.SingleOrDefault(x => true));
+        }
     }
 }
