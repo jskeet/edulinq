@@ -44,13 +44,24 @@ namespace Edulinq.Tests
         }
 
         [Test]
-        public void NullElementsAreNotPassedToComparer()
+        public void NullElementsArePassedToComparer()
         {
             IEqualityComparer<object> comparer = new SimpleEqualityComparer();
             Assert.Throws<NullReferenceException>(() => comparer.GetHashCode(null));
             Assert.Throws<NullReferenceException>(() => comparer.Equals(null, "xyz"));
             string[] source = { "xyz", null, "xyz", null, "abc" };
-            source.Distinct().AssertSequenceEqual("xyz", null, "abc");
+            var distinct = source.Distinct(comparer);
+            Assert.Throws<NullReferenceException>(() => distinct.Count());
+        }
+
+        [Test]
+        public void HashSetCopesWithNullElementsIfComparerDoes()
+        {
+            IEqualityComparer<string> comparer = EqualityComparer<string>.Default;
+            Assert.AreEqual(comparer.GetHashCode(null), comparer.GetHashCode(null));
+            Assert.IsTrue(comparer.Equals(null, null));
+            string[] source = { "xyz", null, "xyz", null, "abc" };
+            source.Distinct(comparer).AssertSequenceEqual("xyz", null, "abc");
         }
 
         [Test]
