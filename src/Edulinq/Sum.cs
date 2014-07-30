@@ -161,15 +161,13 @@ namespace Edulinq
             {
                 throw new ArgumentNullException("selector");
             }
-            checked
+            // No need for checked here: decimal operations are always checked.
+            decimal sum = 0;
+            foreach (T item in source)
             {
-                decimal sum = 0;
-                foreach (T item in source)
-                {
-                    sum += selector(item);
-                }
-                return sum;
+                sum += selector(item);
             }
+            return sum;
         }
 
         public static decimal? Sum<T>(
@@ -184,15 +182,13 @@ namespace Edulinq
             {
                 throw new ArgumentNullException("selector");
             }
-            checked
+            // No need for checked here: decimal operations are always checked.
+            decimal sum = 0;
+            foreach (T item in source)
             {
-                decimal sum = 0;
-                foreach (T item in source)
-                {
-                    sum += selector(item).GetValueOrDefault();
-                }
-                return sum;
+                sum += selector(item).GetValueOrDefault();
             }
+            return sum;
         }
         #endregion Decimal
 

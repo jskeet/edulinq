@@ -217,7 +217,7 @@ namespace Edulinq.Tests
         public void NullSourceInt64WithSelector()
         {
             string[] source = null;
-            Assert.Throws<ArgumentNullException>(() => source.Sum(x => x.Length));
+            Assert.Throws<ArgumentNullException>(() => source.Sum(x => (long) x.Length));
         }
 
         [Test]
@@ -268,7 +268,7 @@ namespace Edulinq.Tests
         public void EmptySequenceInt64WithSelector()
         {
             string[] source = { };
-            Assert.AreEqual(0, source.Sum(x => x.Length));
+            Assert.AreEqual(0, source.Sum(x => (long) x.Length));
         }
 
         [Test]
@@ -310,7 +310,7 @@ namespace Edulinq.Tests
         public void SimpleSumInt64WithSelector()
         {
             string[] source = { "x", "abc", "de" };
-            Assert.AreEqual(6, source.Sum(x => x.Length));
+            Assert.AreEqual(6, source.Sum(x => (long) x.Length));
         }
 
         [Test]
@@ -384,7 +384,7 @@ namespace Edulinq.Tests
         public void NullSourceDecimalWithSelector()
         {
             string[] source = null;
-            Assert.Throws<ArgumentNullException>(() => source.Sum(x => x.Length));
+            Assert.Throws<ArgumentNullException>(() => source.Sum(x => (decimal) x.Length));
         }
 
         [Test]
@@ -435,7 +435,7 @@ namespace Edulinq.Tests
         public void EmptySequenceDecimalWithSelector()
         {
             string[] source = { };
-            Assert.AreEqual(0, source.Sum(x => x.Length));
+            Assert.AreEqual(0, source.Sum(x => (decimal) x.Length));
         }
 
         [Test]
@@ -477,7 +477,7 @@ namespace Edulinq.Tests
         public void SimpleSumDecimalWithSelector()
         {
             string[] source = { "x", "abc", "de" };
-            Assert.AreEqual(6, source.Sum(x => x.Length));
+            Assert.AreEqual(6, source.Sum(x => (decimal) x.Length));
         }
 
         [Test]
@@ -551,7 +551,7 @@ namespace Edulinq.Tests
         public void NullSourceSingleWithSelector()
         {
             string[] source = null;
-            Assert.Throws<ArgumentNullException>(() => source.Sum(x => x.Length));
+            Assert.Throws<ArgumentNullException>(() => source.Sum(x => (float) x.Length));
         }
 
         [Test]
@@ -602,7 +602,7 @@ namespace Edulinq.Tests
         public void EmptySequenceSingleWithSelector()
         {
             string[] source = { };
-            Assert.AreEqual(0, source.Sum(x => x.Length));
+            Assert.AreEqual(0, source.Sum(x => (float) x.Length));
         }
 
         [Test]
@@ -658,7 +658,7 @@ namespace Edulinq.Tests
         public void SimpleSumSingleWithSelector()
         {
             string[] source = { "x", "abc", "de" };
-            Assert.AreEqual(6, source.Sum(x => x.Length));
+            Assert.AreEqual(6, source.Sum(x => (float) x.Length));
         }
 
         [Test]
@@ -767,7 +767,7 @@ namespace Edulinq.Tests
         public void NullSourceDoubleWithSelector()
         {
             string[] source = null;
-            Assert.Throws<ArgumentNullException>(() => source.Sum(x => x.Length));
+            Assert.Throws<ArgumentNullException>(() => source.Sum(x => (double) x.Length));
         }
 
         [Test]
@@ -818,7 +818,7 @@ namespace Edulinq.Tests
         public void EmptySequenceDoubleWithSelector()
         {
             string[] source = { };
-            Assert.AreEqual(0, source.Sum(x => x.Length));
+            Assert.AreEqual(0, source.Sum(x => (double) x.Length));
         }
 
         [Test]
@@ -874,7 +874,7 @@ namespace Edulinq.Tests
         public void SimpleSumDoubleWithSelector()
         {
             string[] source = { "x", "abc", "de" };
-            Assert.AreEqual(6, source.Sum(x => x.Length));
+            Assert.AreEqual(6, source.Sum(x => (double) x.Length));
         }
 
         [Test]
